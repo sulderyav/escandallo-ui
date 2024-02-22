@@ -16,7 +16,6 @@ import {
 import SidebarTopSection from './SidebarTopSection';
 import SidebarMenu from './SidebarMenu';
 import SidebarFooter from './SidebarFooter';
-import Logo from 'src/components/LogoSign';
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `
@@ -55,23 +54,6 @@ function Sidebar() {
         }}
       >
         <Scrollbar>
-          <Box mt={3}>
-            <Box
-              mx={2}
-              sx={{
-                width: 52,
-              }}
-            >
-              <Logo />
-            </Box>
-          </Box>
-          <Divider
-            sx={{
-              my: theme.spacing(3),
-              mx: theme.spacing(2),
-              background: theme.colors.alpha.trueWhite[10],
-            }}
-          />
           <SidebarTopSection />
           <Divider
             sx={{
@@ -108,19 +90,9 @@ function Sidebar() {
           }}
         >
           <Scrollbar>
-            <Box mt={3}>
-              <Box
-                mx={2}
-                sx={{
-                  width: 52,
-                }}
-              >
-                <Logo />
-              </Box>
-            </Box>
             <Divider
               sx={{
-                my: theme.spacing(3),
+                my: theme.spacing(1),
                 mx: theme.spacing(2),
                 background: theme.colors.alpha.trueWhite[10],
               }}

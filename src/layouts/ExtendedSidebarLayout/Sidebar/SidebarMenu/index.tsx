@@ -247,7 +247,8 @@ const reduceChildRoutes = ({
 const canSee = (roles: RoleNames[] = [], userRoles: RoleNames[] = []) => {
   if (roles.length === 0) return true;
   return (
-    roles.some((role) => userRoles.includes(role)) || userRoles.includes('Super Admin')
+    roles.some((role) => userRoles.includes(role)) ||
+    userRoles.includes('Super Admin')
   );
 };
 
@@ -255,8 +256,6 @@ function SidebarMenu() {
   const location = useLocation();
   const { t }: { t: any } = useTranslation();
   const { user } = useAuth();
-
-  console.log(user)
 
   return (
     <>
