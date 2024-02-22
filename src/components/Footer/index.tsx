@@ -30,11 +30,11 @@ function Footer() {
         >
           Creado por{' '}
           <Link
-            href="https://101grados.com"
+            href="https://www.instagram.com/sulderyvelasco/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            101 Grados
+            Suldery Arellano
           </Link>
         </Typography>
       </Box>

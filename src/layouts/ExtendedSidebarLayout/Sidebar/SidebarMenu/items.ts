@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
-import { Dashboard as DashboardIcon } from '@mui/icons-material';
+import KitchenIcon from '@mui/icons-material/Kitchen';
+import SoupKitchenIcon from '@mui/icons-material/SoupKitchen';
+
 import { RoleNames } from 'src/utils/types';
 
 export interface MenuItem {
@@ -21,12 +23,17 @@ export interface MenuItems {
 
 const menuItems: MenuItems[] = [
   {
-    heading: 'Inicio',
+    heading: 'Administración',
     items: [
       {
-        name: 'Tablero',
-        icon: DashboardIcon,
-        link: '/home/user-dashboard',
+        name: 'Ingredientes',
+        icon: KitchenIcon,
+        link: '/management/ingredients',
+      },
+      {
+        name: 'Recetas',
+        icon: SoupKitchenIcon,
+        link: '/management/recipes',
       },
     ],
   },

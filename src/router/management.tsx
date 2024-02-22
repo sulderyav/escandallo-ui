@@ -10,12 +10,15 @@ const Loader = (Component) => (props) =>
     </Suspense>
   );
 
-// Components
+// Management components
+const Ingredients = Loader(
+  lazy(() => import('src/content/Management/Ingredients'))
+);
 
 const homeRoutes = [
   {
-    path: '',
-    element: <Navigate to="users" replace />,
+    path: 'ingredients',
+    element: <Ingredients />,
   },
 ];
 
