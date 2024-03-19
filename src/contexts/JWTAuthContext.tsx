@@ -185,7 +185,6 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
     }>('/auth/login', {
       email,
       password,
-      isGoogleLogin,
       tenantId: generalConfig.tenant.id,
     });
 

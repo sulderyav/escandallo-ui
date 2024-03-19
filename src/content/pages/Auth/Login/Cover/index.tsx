@@ -87,18 +87,7 @@ function LoginCover() {
                 <Typography variant="h2" sx={{ mb: 1 }}>
                   Ingresar
                 </Typography>
-                {/* <Typography
-                  variant="h4"
-                  color="text.secondary"
-                  fontWeight="normal"
-                  sx={{ mb: 3 }}
-                >
-                  Si tienes cuenta de 101 Grados accede con Google. Caso
-                  contrario por favor ingresar tus credenciales.
-                </Typography> */}
               </Box>
-
-              {/* <FirebaseAuthLogin /> */}
 
               <JWTLogin />
             </Card>

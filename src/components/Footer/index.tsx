@@ -19,7 +19,7 @@ function Footer() {
       >
         <Box>
           <Typography variant="subtitle1">
-            &copy; {new Date().getFullYear()} - 101 Grados Marketing Relacional
+            &copy; {new Date().getFullYear()} - Suldery Arellano
           </Typography>
         </Box>
         <Typography
