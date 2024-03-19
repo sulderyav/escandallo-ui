@@ -7,12 +7,11 @@ import {
   Typography,
   Container,
   Alert,
-  styled
+  styled,
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import useAuth from 'src/hooks/useAuth';
 import Auth0Login from '../LoginAuth0';
-import FirebaseAuthLogin from '../LoginFirebaseAuth';
 import JWTLogin from '../LoginJWT';
 import AmplifyLogin from '../LoginAmplify';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +21,7 @@ const icons = {
   Auth0: '/static/images/logo/auth0.svg',
   FirebaseAuth: '/static/images/logo/firebase.svg',
   JWT: '/static/images/logo/jwt.svg',
-  Amplify: '/static/images/logo/amplify.svg'
+  Amplify: '/static/images/logo/amplify.svg',
 };
 
 const CardImg = styled(Card)(
@@ -89,14 +88,14 @@ function LoginBasic() {
                 mt: 3,
                 px: 4,
                 pt: 5,
-                pb: 3
+                pb: 3,
               }}
             >
               <Box>
                 <Typography
                   variant="h2"
                   sx={{
-                    mb: 1
+                    mb: 1,
                   }}
                 >
                   {t('Sign in')}
@@ -106,14 +105,13 @@ function LoginBasic() {
                   color="text.secondary"
                   fontWeight="normal"
                   sx={{
-                    mb: 3
+                    mb: 3,
                   }}
                 >
                   {t('Fill in the fields below to sign into your account.')}
                 </Typography>
               </Box>
               {method === 'Auth0' && <Auth0Login />}
-              {method === 'FirebaseAuth' && <FirebaseAuthLogin />}
               {method === 'JWT' && <JWTLogin />}
               {method === 'Amplify' && <AmplifyLogin />}
               <Box my={4}>

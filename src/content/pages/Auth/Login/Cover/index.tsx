@@ -1,6 +1,5 @@
 import { Box, Card, Hidden, Typography, Container } from '@mui/material';
 import ContentWrapper from 'src/components/ContentWrapper';
-import FirebaseAuthLogin from '../LoginFirebaseAuth';
 import JWTLogin from '../LoginJWT';
 import { experimentalStyled } from '@mui/material';
 import Logo from 'src/components/Logo';

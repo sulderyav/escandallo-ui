@@ -12,10 +12,8 @@ import ThemeProvider from './theme/ThemeProvider';
 import AppInit from './components/AppInit';
 import ScrollToTop from './utils/ScrollToTop';
 import { AuthProvider } from './contexts/JWTAuthContext';
-import { AuthProvider as AuthProviderFirebase } from './contexts/FirebaseAuthContext';
 import { ApiProvider } from './contexts/ApiContext';
 import { SnackbarCloseButton } from './components/SnackbarClose';
-
 
 function App() {
   const content = useRoutes(router);
@@ -39,9 +37,7 @@ function App() {
           <CssBaseline />
           <AuthProvider>
             <ApiProvider>
-              <AuthProviderFirebase>
-                {auth.isInitialized ? content : <AppInit />}
-              </AuthProviderFirebase>
+              {auth.isInitialized ? content : <AppInit />}
             </ApiProvider>
           </AuthProvider>
         </SnackbarProvider>

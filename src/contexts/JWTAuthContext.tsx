@@ -135,9 +135,8 @@ export const AuthProvider: FC<AuthProviderProps> = (props) => {
         if (accessToken) {
           setSession(accessToken);
 
-          const { data: user } = await axios.get<User>(
-            '/users/me'
-          );
+          console.log('accessToken', accessToken);
+          const { data: user } = await axios.get<User>('/users/me');
 
           dispatch({
             type: 'INITIALIZE',
