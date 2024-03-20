@@ -14,6 +14,10 @@ import {
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
 import Text from 'src/components/Text';
+import {
+  MeassurementType,
+  parseMeassurementTypeToLabel,
+} from 'src/utils/types';
 
 const IconButtonError = styled(IconButton)(
   ({ theme }) => `
@@ -56,6 +60,8 @@ type IngredientItemProps = {
   slug: string;
   name: string;
   image: string;
+  cost: number;
+  meassurementType: MeassurementType;
   onClick: () => void; // Add onClick handler
 };
 
@@ -97,12 +103,15 @@ function IngredientItem(props: IngredientItemProps) {
         <Box px={2} display="flex" flexDirection="column">
           <Box>
             <Typography variant="subtitle2">
-              Costo: <Text color="black">$0.3</Text>
+              Costo: <Text color="black">$ {props.cost}</Text>
             </Typography>
           </Box>
           <Box>
             <Typography variant="subtitle2">
-              Medida: <Text color="black">Gramos</Text>
+              Medida:{' '}
+              <Text color="black">
+                {parseMeassurementTypeToLabel(props.meassurementType)}
+              </Text>
             </Typography>
           </Box>
         </Box>

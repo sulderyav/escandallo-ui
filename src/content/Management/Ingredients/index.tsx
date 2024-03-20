@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import PageHeader from './PageHeader';
 import { Grid } from '@mui/material';
 
+import PageHeader from './PageHeader';
 import IngredientsList from './List';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import Footer from 'src/components/Footer';

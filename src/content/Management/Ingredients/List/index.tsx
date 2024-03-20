@@ -1,6 +1,15 @@
-import { Card, Grid, TextField, InputAdornment, Box } from '@mui/material';
+import {
+  Card,
+  Grid,
+  TextField,
+  InputAdornment,
+  Box,
+  Button,
+} from '@mui/material';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+import AddIcon from '@mui/icons-material/Add';
 import queryString from 'query-string';
+import { useNavigate } from 'react-router-dom';
 
 import { useApiAuth } from 'src/hooks';
 import { Ingredient as IngredientType } from 'src/utils/types';
@@ -18,6 +27,7 @@ const IngredientsList = () => {
     return response;
   };
   const { loading, entities: ingredients } = useIngredients(getIngredients);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -30,7 +40,7 @@ const IngredientsList = () => {
         }}
       >
         <Grid alignItems="center" container spacing={3}>
-          <Grid item xs={12} lg={7} md={6}>
+          <Grid item xs={12} display="flex" justifyContent="space-between">
             <TextField
               InputProps={{
                 startAdornment: (
@@ -45,9 +55,14 @@ const IngredientsList = () => {
               onChange={() => {}}
               placeholder={'Buscar ingredientes...'}
               value={''}
-              fullWidth
               variant="outlined"
             />
+            <Button
+              startIcon={<AddIcon />}
+              onClick={() => navigate('/management/ingredients/create')}
+            >
+              <Box>Crear</Box>
+            </Button>
           </Grid>
         </Grid>
       </Card>

@@ -14,11 +14,22 @@ const Loader = (Component) => (props) =>
 const Ingredients = Loader(
   lazy(() => import('src/content/Management/Ingredients'))
 );
+const CreateIngredient = Loader(
+  lazy(() => import('src/content/Management/Ingredients/Create'))
+);
 
 const homeRoutes = [
   {
     path: 'ingredients',
     element: <Ingredients />,
+  },
+  {
+    path: 'ingredients/create',
+    element: <CreateIngredient />,
+  },
+  {
+    path: 'ingredients/:id',
+    element: <Navigate to="/ingredients" />,
   },
 ];
 
