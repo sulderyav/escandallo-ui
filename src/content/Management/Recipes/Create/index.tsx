@@ -10,11 +10,11 @@ const CreateIngredient = () => {
   return (
     <>
       <Helmet>
-        <title>Crear Ingredientes</title>
+        <title>Crear Receta</title>
       </Helmet>
-      <PageTitleWrapper>
+      {/* <PageTitleWrapper>
         <PageHeader />
-      </PageTitleWrapper>
+      </PageTitleWrapper> */}
 
       <Grid container spacing={3}>
         <Grid item xs={12}>

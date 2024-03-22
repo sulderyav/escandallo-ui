@@ -26,6 +26,7 @@ import {
   parseMeassurementTypeToLabel,
 } from 'src/utils/types';
 import { useApiAuth } from 'src/hooks';
+import Cover from './Cover';
 
 const validationSchema = object().shape({
   slug: string().required('El slug es requerido'),
@@ -75,8 +76,12 @@ const CreateIngredientForm = () => {
       >
         {({ errors, values }) => (
           <Form>
-            <Grid container spacing={0}>
-              {/* <Grid
+            <Cover
+              name=""
+              coverImageURL="https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/encebollado.jpg?ssl=1"
+            />
+            {/* <Grid container spacing={0}> */}
+            {/* <Grid
                 item
                 xs={12}
                 sm={4}
@@ -309,25 +314,25 @@ const CreateIngredientForm = () => {
                 </Field>
               </Grid> */}
 
-              {/* Submit button */}
-              <Grid
-                item
-                xs={12}
-                justifyContent="flex-end"
-                textAlign={{ sm: 'right' }}
-                mr={3}
+            {/* Submit button */}
+            <Grid
+              item
+              xs={12}
+              justifyContent="flex-end"
+              textAlign={{ sm: 'right' }}
+              mr={3}
+            >
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                startIcon={<SaveIcon />}
               >
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  startIcon={<SaveIcon />}
-                >
-                  Guardar
-                </Button>
-              </Grid>
+                Guardar
+              </Button>
             </Grid>
+            {/* </Grid> */}
           </Form>
         )}
       </Formik>
