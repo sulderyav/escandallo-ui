@@ -24,3 +24,4 @@ export * from './ticket';
 export * from './message';
 export * from './category';
 export * from './attachment';
+export * from './recipe';

@@ -17,6 +17,10 @@ const Ingredients = Loader(
 const CreateIngredient = Loader(
   lazy(() => import('src/content/Management/Ingredients/Create'))
 );
+const Recipes = Loader(lazy(() => import('src/content/Management/Recipes')));
+const CreateRecipe = Loader(
+  lazy(() => import('src/content/Management/Recipes/Create'))
+);
 
 const homeRoutes = [
   {
@@ -30,6 +34,18 @@ const homeRoutes = [
   {
     path: 'ingredients/:id',
     element: <Navigate to="/ingredients" />,
+  },
+  {
+    path: 'recipes',
+    element: <Recipes />,
+  },
+  {
+    path: 'recipes/create',
+    element: <CreateRecipe />,
+  },
+  {
+    path: 'recipes/:id',
+    element: <Navigate to="/recipes" />,
   },
 ];
 

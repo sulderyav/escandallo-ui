@@ -12,21 +12,20 @@ import queryString from 'query-string';
 import { useNavigate } from 'react-router-dom';
 
 import { useApiAuth } from 'src/hooks';
-import { Ingredient as IngredientType } from 'src/utils/types';
+import { Recipe as RecipeType } from 'src/utils/types';
 import Ingredient from './Item';
 import { useIngredients } from './reducer';
 
-const IngredientsList = () => {
+const RecipesList = () => {
   const { get } = useApiAuth();
-  const getIngredients = async () => {
+  const getRecipes = async () => {
     const params = {
       ignorePagination: true,
     };
     const query = queryString.stringify(params);
-    const response = await get<IngredientType[]>('/ingredients?' + query);
-    return response;
+    return await get<RecipeType[]>('/recipes?' + query);
   };
-  const { loading, entities: ingredients } = useIngredients(getIngredients);
+  const { loading, entities: ingredients } = useIngredients(getRecipes);
   const navigate = useNavigate();
 
   return (
@@ -53,13 +52,13 @@ const IngredientsList = () => {
                 m: 0,
               }}
               onChange={() => {}}
-              placeholder={'Buscar ingredientes...'}
+              placeholder={'Buscar recetas...'}
               value={''}
               variant="outlined"
             />
             <Button
               startIcon={<AddIcon />}
-              onClick={() => navigate('/management/ingredients/create')}
+              onClick={() => navigate('/management/recipes/create')}
             >
               <Box>Crear</Box>
             </Button>
@@ -77,4 +76,4 @@ const IngredientsList = () => {
   );
 };
 
-export default IngredientsList;
+export default RecipesList;
