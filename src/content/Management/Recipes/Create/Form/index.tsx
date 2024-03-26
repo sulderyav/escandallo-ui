@@ -14,37 +14,85 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
+  styled,
   useTheme,
 } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
-import {
-  CreateIngredient,
-  MeassurementType,
-  parseMeassurementTypeToLabel,
-} from 'src/utils/types';
+const EditorWrapper = styled(Box)(
+  ({ theme }) => `
+
+    .ql-editor {
+      min-height: 40vh;
+    }
+
+    .ql-snow .ql-picker {
+      color: ${theme.colors.alpha.black[100]};
+    }
+
+    .ql-snow .ql-stroke {
+      stroke: ${theme.colors.alpha.black[100]};
+    }
+
+    .ql-toolbar.ql-snow {
+      border-top-left-radius: ${theme.general.borderRadius};
+      border-top-right-radius: ${theme.general.borderRadius};
+    }
+
+    .ql-toolbar.ql-snow,
+    .ql-container.ql-snow {
+      border-color: ${theme.colors.alpha.black[30]};
+    }
+
+    .ql-container.ql-snow {
+      border-bottom-left-radius: ${theme.general.borderRadius};
+      border-bottom-right-radius: ${theme.general.borderRadius};
+    }
+
+    &:hover {
+      .ql-toolbar.ql-snow,
+      .ql-container.ql-snow {
+        border-color: ${theme.colors.alpha.black[50]};
+      }
+    }
+`
+);
+
+import { CreateRecipe } from 'src/utils/types';
 import { useApiAuth } from 'src/hooks';
 import Cover from './Cover';
 
 const validationSchema = object().shape({
   slug: string().required('El slug es requerido'),
   name: string().required('El nombre es requerido'),
-  meassurementType: string().required('El tipo de medida es requerido'),
-  // cost: string().required('El costo es requerido'),
-  // Cost is required but it's a number, it has to be positive
-  cost: string()
-    .required('El costo es requerido')
-    .matches(/^[0-9]*[.]?[0-9]*$/, 'El costo debe ser un número positivo'),
+  steps: string().required('Los pasos son requeridos'),
+  // portions: string().required('Las porciones son requeridas'),
+  // Portions is required and must be a number and more than 0
+  portions: string()
+    .required('Las porciones son requeridas')
+    .test('isNumber', 'Las porciones deben ser un número', (value) => {
+      return !isNaN(Number(value));
+    })
+    .test(
+      'isGreaterThanZero',
+      'Las porciones deben ser mayores a 0',
+      (value) => {
+        return Number(value) > 0;
+      }
+    ),
 });
 
-const defaultValues: CreateIngredient = {
+const defaultValues: CreateRecipe = {
   slug: '',
   name: '',
-  meassurementType: '',
-  cost: 0,
-  description: '',
+  steps: '',
+  portions: 0,
+  // coverImage: '',
 };
 
 const CreateIngredientForm = () => {
@@ -53,13 +101,13 @@ const CreateIngredientForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const handleSubmit = async (values: CreateIngredient) => {
+  const handleSubmit = async (values: CreateRecipe) => {
     try {
-      await post('/ingredients', values);
-      enqueueSnackbar('Ingrediente creado correctamente', {
+      await post('/recipes', values);
+      enqueueSnackbar('Receta creada correctamente', {
         variant: 'success',
       });
-      navigate('/management/ingredients');
+      navigate('/management/recipes');
     } catch (error) {
       console.error('error', error);
     }
@@ -71,17 +119,43 @@ const CreateIngredientForm = () => {
         initialValues={defaultValues}
         onSubmit={(values) => handleSubmit(values)}
         validateOnBlur={true}
-        validateOnChange={false}
         validationSchema={validationSchema}
       >
-        {({ errors, values }) => (
+        {({ errors, values, setFieldValue }) => (
           <Form>
+            {console.log('values', values)}
             <Cover
-              name=""
-              coverImageURL="https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/encebollado.jpg?ssl=1"
+              name={values.name}
+              slug={values.slug}
+              coverImageURL={
+                values.coverImage ||
+                'https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/encebollado.jpg?ssl=1'
+              }
+              setFieldValue={setFieldValue}
+              nameError={Boolean(errors.name)}
+              nameHelperText={errors.name}
+              slugError={Boolean(errors.slug)}
+              slugHelperText={errors.slug}
             />
-            {/* <Grid container spacing={0}> */}
-            {/* <Grid
+            <Grid container spacing={0}>
+              <Grid item xs={12}>
+                <Box p={3}>
+                  <EditorWrapper>
+                    <ReactQuill
+                      placeholder="Escribe los pasos de la receta"
+                      onChange={(value) => setFieldValue('steps', value)}
+                    />
+                    <Typography
+                      variant="subtitle1"
+                      color="error"
+                      style={{ display: 'block', marginTop: '10px' }}
+                    >
+                      {errors.steps}
+                    </Typography>
+                  </EditorWrapper>
+                </Box>
+              </Grid>
+              <Grid
                 item
                 xs={12}
                 sm={4}
@@ -97,7 +171,7 @@ const CreateIngredientForm = () => {
                   }}
                   alignSelf="center"
                 >
-                  <b>Slug:</b>
+                  <b>Porciones:</b>
                 </Box>
               </Grid>
               <Grid
@@ -109,20 +183,20 @@ const CreateIngredientForm = () => {
                 sm={8}
                 md={9}
               >
-                <Field name="slug">
+                <Field name="portions">
                   {({ field }: FieldProps) => (
                     <TextField
                       {...field}
-                      label="Slug"
-                      placeholder="Ej. pimienta-cayena"
-                      error={Boolean(errors.slug)}
-                      helperText={errors.slug}
+                      label="Porciones"
+                      placeholder="Ej. 2"
+                      error={Boolean(errors.portions)}
+                      helperText={errors.portions}
                     />
                   )}
                 </Field>
               </Grid>
 
-              <Grid
+              {/* <Grid
                 item
                 xs={12}
                 sm={4}
@@ -314,25 +388,25 @@ const CreateIngredientForm = () => {
                 </Field>
               </Grid> */}
 
-            {/* Submit button */}
-            <Grid
-              item
-              xs={12}
-              justifyContent="flex-end"
-              textAlign={{ sm: 'right' }}
-              mr={3}
-            >
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                size="large"
-                startIcon={<SaveIcon />}
+              {/* Submit button */}
+              <Grid
+                item
+                xs={12}
+                justifyContent="flex-end"
+                textAlign={{ sm: 'right' }}
+                mr={3}
               >
-                Guardar
-              </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  startIcon={<SaveIcon />}
+                >
+                  Guardar
+                </Button>
+              </Grid>
             </Grid>
-            {/* </Grid> */}
           </Form>
         )}
       </Formik>

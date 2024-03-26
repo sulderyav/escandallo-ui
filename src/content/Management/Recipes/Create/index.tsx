@@ -1,9 +1,6 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Grid } from '@mui/material';
 
-import PageHeader from './PageHeader';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import IngredientForm from './Form';
 
 const CreateIngredient = () => {
@@ -12,9 +9,6 @@ const CreateIngredient = () => {
       <Helmet>
         <title>Crear Receta</title>
       </Helmet>
-      {/* <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper> */}
 
       <Grid container spacing={3}>
         <Grid item xs={12}>

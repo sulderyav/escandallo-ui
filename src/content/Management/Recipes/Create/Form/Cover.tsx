@@ -9,6 +9,7 @@ import {
   Button,
   IconButton,
   styled,
+  TextField,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
@@ -39,10 +40,23 @@ const CardCoverAction = styled(Box)(
 
 interface RecipeCoverProps {
   name: string;
+  slug: string;
   coverImageURL: string;
+  setFieldValue: (field: string, value: any) => void;
+  nameError: boolean;
+  nameHelperText: React.ReactNode;
+  slugError: boolean;
+  slugHelperText: React.ReactNode;
 }
 
-const RecipeCover: FC<RecipeCoverProps> = ({ name, coverImageURL }) => {
+const RecipeCover: FC<RecipeCoverProps> = ({
+  name,
+  slug,
+  coverImageURL,
+  setFieldValue,
+  nameError,
+  nameHelperText,
+}) => {
   const { t }: { t: any } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -68,7 +82,32 @@ const RecipeCover: FC<RecipeCoverProps> = ({ name, coverImageURL }) => {
         </Tooltip>
         <Box>
           <Typography variant="h3" component="h3" gutterBottom>
-            Receta: {name}
+            <Box
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              Receta:
+              <TextField
+                label="Nombre de la receta"
+                placeholder="Ej. Ceviche de Camarón"
+                sx={{ ml: 2 }}
+                error={nameError}
+                helperText={nameHelperText}
+                value={name}
+                onChange={(e) => setFieldValue('name', e.target.value)}
+              />
+              <TextField
+                label="Slug"
+                placeholder="Ej. ceviche-de-camaron"
+                sx={{ ml: 2 }}
+                error={nameError}
+                helperText={nameHelperText}
+                value={slug}
+                onChange={(e) => setFieldValue('slug', e.target.value)}
+              />
+            </Box>
           </Typography>
           <Typography variant="subtitle2">
             Crea una nueva receta para tu repositorio
