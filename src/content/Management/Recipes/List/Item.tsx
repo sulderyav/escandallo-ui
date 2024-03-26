@@ -55,17 +55,16 @@ const CardWrapper = styled(Card)(
   `
 );
 
-type IngredientItemProps = {
+type RecipeItemProps = {
   id: string;
   slug: string;
   name: string;
   image: string;
-  cost: number;
-  meassurementType: MeassurementType;
+  portions: number;
   onClick: () => void; // Add onClick handler
 };
 
-function IngredientItem(props: IngredientItemProps) {
+function RecipeItem(props: RecipeItemProps) {
   const theme = useTheme();
 
   return (
@@ -103,17 +102,14 @@ function IngredientItem(props: IngredientItemProps) {
         <Box px={2} display="flex" flexDirection="column">
           <Box>
             <Typography variant="subtitle2">
-              Costo: <Text color="black">$ {props.cost}</Text>
+              Porciones: <Text color="black"> {props.portions}</Text>
             </Typography>
           </Box>
-          <Box>
+          {/* <Box>
             <Typography variant="subtitle2">
-              Medida:{' '}
-              <Text color="black">
-                {parseMeassurementTypeToLabel(props.meassurementType)}
-              </Text>
+              Medida:
             </Typography>
-          </Box>
+          </Box> */}
         </Box>
         <Divider />
         <Box p={2} display="flex" alignItems="center" justifyContent="flex-end">
@@ -140,4 +136,4 @@ function IngredientItem(props: IngredientItemProps) {
   );
 }
 
-export default IngredientItem;
+export default RecipeItem;

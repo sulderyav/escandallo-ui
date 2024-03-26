@@ -13,8 +13,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useApiAuth } from 'src/hooks';
 import { Recipe as RecipeType } from 'src/utils/types';
-import Ingredient from './Item';
-import { useIngredients } from './reducer';
+import Recipe from './Item';
+import { useRecipes } from './reducer';
 
 const RecipesList = () => {
   const { get } = useApiAuth();
@@ -25,7 +25,7 @@ const RecipesList = () => {
     const query = queryString.stringify(params);
     return await get<RecipeType[]>('/recipes?' + query);
   };
-  const { loading, entities: ingredients } = useIngredients(getRecipes);
+  const { loading, entities: recipes } = useRecipes(getRecipes);
   const navigate = useNavigate();
 
   return (
@@ -66,9 +66,13 @@ const RecipesList = () => {
         </Grid>
       </Card>
       <Grid container spacing={3}>
-        {ingredients.map((ingredient) => (
-          <Grid item key={ingredient.id} xs={12} sm={4} md={2}>
-            <Ingredient {...ingredient} />
+        {recipes.map((recipe) => (
+          <Grid item key={recipe.id} xs={12} sm={4} md={2}>
+            <Recipe
+              {...recipe}
+              image={recipe.coverImage}
+              portions={recipe.portions}
+            />
           </Grid>
         ))}
       </Grid>

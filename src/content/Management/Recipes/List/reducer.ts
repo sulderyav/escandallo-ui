@@ -28,7 +28,7 @@ const initialState: State = {
   entities: [],
 };
 
-export function useIngredients(getEntities: () => Promise<any[]>) {
+export function useRecipes(getEntities: () => Promise<any[]>) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
