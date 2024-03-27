@@ -1,3 +1,5 @@
+import { Recipe } from './recipe';
+
 export interface Ingredient {
   id: string;
   slug: string;
@@ -41,3 +43,16 @@ export const parseMeassurementTypeToLabel = (
       return 'Pieza';
   }
 };
+
+export interface RecipeIngredient {
+  id: number;
+  quantity: number;
+  ingredient: Ingredient;
+  recipe: Recipe;
+}
+
+export interface CreateRecipeIngredient
+  extends Omit<RecipeIngredient, 'id' | 'ingredient' | 'recipe'> {
+  ingredientId: number;
+  recipeId: number;
+}

@@ -24,6 +24,11 @@ import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
+import { CreateRecipe } from 'src/utils/types';
+import { useApiAuth } from 'src/hooks';
+import Cover from './Cover';
+import RecipeIngredients from './Ingredients';
+
 const EditorWrapper = styled(Box)(
   ({ theme }) => `
 
@@ -62,10 +67,6 @@ const EditorWrapper = styled(Box)(
     }
 `
 );
-
-import { CreateRecipe } from 'src/utils/types';
-import { useApiAuth } from 'src/hooks';
-import Cover from './Cover';
 
 const validationSchema = object().shape({
   slug: string().required('El slug es requerido'),
@@ -123,7 +124,6 @@ const CreateIngredientForm = () => {
       >
         {({ errors, values, setFieldValue }) => (
           <Form>
-            {console.log('values', values)}
             <Cover
               name={values.name}
               slug={values.slug}
@@ -138,6 +138,8 @@ const CreateIngredientForm = () => {
               slugHelperText={errors.slug}
             />
             <Grid container spacing={0}>
+              <RecipeIngredients />
+
               <Grid item xs={12}>
                 <Box p={3}>
                   <EditorWrapper>
@@ -154,6 +156,7 @@ const CreateIngredientForm = () => {
                     </Typography>
                   </EditorWrapper>
                 </Box>
+                G
               </Grid>
               <Grid
                 item
