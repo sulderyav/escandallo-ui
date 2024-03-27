@@ -24,10 +24,11 @@ import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { CreateRecipe } from 'src/utils/types';
+import { CreateRecipe, CreateRecipeIngredient, Recipe } from 'src/utils/types';
 import { useApiAuth } from 'src/hooks';
 import Cover from './Cover';
 import RecipeIngredients from './Ingredients';
+import { useState } from 'react';
 
 const EditorWrapper = styled(Box)(
   ({ theme }) => `
@@ -102,9 +103,47 @@ const CreateIngredientForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
+  const [recipeIngredients, setRecipeIngredients] = useState<
+    CreateRecipeIngredient[]
+  >([
+    {
+      quantity: 0,
+      ingredientId: 0,
+      recipeId: 0,
+    },
+    {
+      quantity: 0,
+      ingredientId: 0,
+      recipeId: 0,
+    },
+    {
+      quantity: 0,
+      ingredientId: 0,
+      recipeId: 0,
+    },
+  ]);
+
+  const updateQuantity = (index: number, quantity: number) => {
+    const updatedIngredients = [...recipeIngredients];
+    updatedIngredients[index].quantity = quantity;
+    setRecipeIngredients(updatedIngredients);
+  };
+
+  const updateIngredient = (index: number, ingredientId: number) => {
+    const updatedIngredients = [...recipeIngredients];
+    updatedIngredients[index].ingredientId = ingredientId;
+    setRecipeIngredients(updatedIngredients);
+  };
+
   const handleSubmit = async (values: CreateRecipe) => {
     try {
-      await post('/recipes', values);
+      const newRecipe = await post<Recipe>('/recipes', values);
+      for (const recipeIngredient of recipeIngredients) {
+        await post('/recipe-ingredients', {
+          ...recipeIngredient,
+          recipeId: newRecipe.id,
+        });
+      }
       enqueueSnackbar('Receta creada correctamente', {
         variant: 'success',
       });
@@ -113,6 +152,8 @@ const CreateIngredientForm = () => {
       console.error('error', error);
     }
   };
+
+  console.log('recipeIngredients', recipeIngredients);
 
   return (
     <>
@@ -138,7 +179,12 @@ const CreateIngredientForm = () => {
               slugHelperText={errors.slug}
             />
             <Grid container spacing={0}>
-              <RecipeIngredients />
+              <RecipeIngredients
+                recipeIngredients={recipeIngredients}
+                setRecipeIngredients={setRecipeIngredients}
+                updateQuantity={updateQuantity}
+                updateIngredient={updateIngredient}
+              />
 
               <Grid item xs={12}>
                 <Box p={3}>

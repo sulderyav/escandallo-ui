@@ -1,44 +1,23 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Box, Grid, TextField, useTheme } from '@mui/material';
 import { Field, FieldProps } from 'formik';
 
 import IngredientField from 'src/components/Administration/Partials/IngredientField';
 import { CreateRecipeIngredient } from 'src/utils/types';
 
-const RecipesIngredients = () => {
+const RecipesIngredients: FC<{
+  recipeIngredients: CreateRecipeIngredient[];
+  setRecipeIngredients: (recipeIngredients: CreateRecipeIngredient[]) => void;
+  updateQuantity: (index: number, quantity: number) => void;
+  updateIngredient: (index: number, ingredientId: number) => void;
+}> = ({
+  recipeIngredients,
+  setRecipeIngredients,
+  updateQuantity,
+  updateIngredient,
+}) => {
   const theme = useTheme();
   // const [ingredients, setIngredients] = React.useState([]);
-  const [recipeIngredients, setRecipeIngredients] = useState<
-    CreateRecipeIngredient[]
-  >([
-    {
-      quantity: 0,
-      ingredientId: 0,
-      recipeId: 0,
-    },
-    {
-      quantity: 0,
-      ingredientId: 0,
-      recipeId: 0,
-    },
-    {
-      quantity: 0,
-      ingredientId: 0,
-      recipeId: 0,
-    },
-  ]);
-
-  const updateQuantity = (index: number, quantity: number) => {
-    const updatedIngredients = [...recipeIngredients];
-    updatedIngredients[index].quantity = quantity;
-    setRecipeIngredients(updatedIngredients);
-  };
-
-  const updateIngredient = (index: number, ingredientId: number) => {
-    const updatedIngredients = [...recipeIngredients];
-    updatedIngredients[index].ingredientId = ingredientId;
-    setRecipeIngredients(updatedIngredients);
-  };
 
   return (
     <>
