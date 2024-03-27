@@ -72,6 +72,7 @@ const RecipesList = () => {
               {...recipe}
               image={recipe.coverImage}
               portions={recipe.portions}
+              recipeIngredients={recipe.recipeIngredients}
             />
           </Grid>
         ))}

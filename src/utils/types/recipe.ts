@@ -1,3 +1,5 @@
+import { RecipeIngredient } from './ingredient';
+
 export interface Recipe {
   id: number;
   slug: string;
@@ -5,8 +7,10 @@ export interface Recipe {
   steps: string;
   portions: number;
   coverImage: string;
+  recipeIngredients: RecipeIngredient[];
 }
 
-export interface CreateRecipe extends Omit<Recipe, 'id' | 'coverImage'> {
+export interface CreateRecipe
+  extends Omit<Recipe, 'id' | 'coverImage' | 'recipeIngredients'> {
   coverImage?: string;
 }

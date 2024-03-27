@@ -16,6 +16,7 @@ import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import Text from 'src/components/Text';
 import {
   MeassurementType,
+  RecipeIngredient,
   parseMeassurementTypeToLabel,
 } from 'src/utils/types';
 
@@ -62,6 +63,7 @@ type RecipeItemProps = {
   image: string;
   portions: number;
   onClick: () => void; // Add onClick handler
+  recipeIngredients: RecipeIngredient[];
 };
 
 function RecipeItem(props: RecipeItemProps) {
@@ -105,11 +107,17 @@ function RecipeItem(props: RecipeItemProps) {
               Porciones: <Text color="black"> {props.portions}</Text>
             </Typography>
           </Box>
-          {/* <Box>
+          <Box>
             <Typography variant="subtitle2">
-              Medida:
+              Ingredientes:{' '}
+              <Text color="black">
+                {' '}
+                {props.recipeIngredients
+                  .map((ingredient) => ingredient.ingredient.name)
+                  .join(', ')}
+              </Text>
             </Typography>
-          </Box> */}
+          </Box>
         </Box>
         <Divider />
         <Box p={2} display="flex" alignItems="center" justifyContent="flex-end">

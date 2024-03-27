@@ -153,8 +153,6 @@ const CreateIngredientForm = () => {
     }
   };
 
-  console.log('recipeIngredients', recipeIngredients);
-
   return (
     <>
       <Formik
