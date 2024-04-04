@@ -13,4 +13,5 @@ export interface Recipe {
 export interface CreateRecipe
   extends Omit<Recipe, 'id' | 'coverImage' | 'recipeIngredients'> {
   coverImage?: string;
+  subjectIds?: number[];
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Formik, Form, FastField as Field, FieldProps } from 'formik';
 import { object, string } from 'yup';
 import {
@@ -19,7 +20,7 @@ import { CreateRecipe, CreateRecipeIngredient, Recipe } from 'src/utils/types';
 import { useApiAuth } from 'src/hooks';
 import Cover from './Cover';
 import RecipeIngredients from './Ingredients';
-import { useState } from 'react';
+import SubjectsField from './SubjectsField';
 
 const EditorWrapper = styled(Box)(
   ({ theme }) => `
@@ -152,7 +153,7 @@ const CreateIngredientForm = () => {
       >
         {({ errors, values, setFieldValue }) => (
           <Form>
-            <Cover
+            {/* <Cover
               name={values.name}
               slug={values.slug}
               coverImageURL={values.coverImage || ''}
@@ -161,7 +162,7 @@ const CreateIngredientForm = () => {
               nameHelperText={errors.name}
               slugError={Boolean(errors.slug)}
               slugHelperText={errors.slug}
-            />
+            /> */}
             <Grid container spacing={0}>
               <RecipeIngredients
                 recipeIngredients={recipeIngredients}
@@ -186,7 +187,6 @@ const CreateIngredientForm = () => {
                     </Typography>
                   </EditorWrapper>
                 </Box>
-                G
               </Grid>
               <Grid
                 item
@@ -227,6 +227,47 @@ const CreateIngredientForm = () => {
                     />
                   )}
                 </Field>
+              </Grid>
+
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                md={3}
+                justifyContent="flex-end"
+                textAlign={{ sm: 'right' }}
+              >
+                <Box
+                  pr={3}
+                  sx={{
+                    pt: `${theme.spacing(2)}`,
+                    pb: { xs: 1, md: 0 },
+                  }}
+                  alignSelf="center"
+                >
+                  <b>Materias:</b>
+                </Box>
+              </Grid>
+              <Grid
+                sx={{
+                  mb: `${theme.spacing(3)}`,
+                }}
+                item
+                xs={12}
+                sm={4}
+                md={3}
+              >
+                {/* <Field name="portions">
+                  {({ field }: FieldProps) => (
+                    <SubjectsField
+                      {...field}
+                      setFieldValue={setFieldValue}
+                      error={Boolean(errors.portions)}
+                      helperText={errors.portions}
+                      label="Materias"
+                    />
+                  )}
+                </Field> */}
               </Grid>
 
               {/* Submit button */}
