@@ -85,6 +85,7 @@ const defaultValues: CreateRecipe = {
   steps: '',
   portions: 0,
   coverImage: '',
+  subjectIds: [],
 };
 
 const CreateIngredientForm = () => {
@@ -127,7 +128,10 @@ const CreateIngredientForm = () => {
 
   const handleSubmit = async (values: CreateRecipe) => {
     try {
-      const newRecipe = await post<Recipe>('/recipes', values);
+      const newRecipe = await post<Recipe>('/recipes', {
+        ...values,
+        subjectIds: values.subjectIds?.map((subject) => subject.value),
+      });
       for (const recipeIngredient of recipeIngredients) {
         await post('/recipe-ingredients', {
           ...recipeIngredient,
@@ -148,12 +152,12 @@ const CreateIngredientForm = () => {
       <Formik
         initialValues={defaultValues}
         onSubmit={(values) => handleSubmit(values)}
-        validateOnBlur={true}
+        // validateOnBlur={true}
         validationSchema={validationSchema}
       >
         {({ errors, values, setFieldValue }) => (
           <Form>
-            {/* <Cover
+            <Cover
               name={values.name}
               slug={values.slug}
               coverImageURL={values.coverImage || ''}
@@ -162,7 +166,7 @@ const CreateIngredientForm = () => {
               nameHelperText={errors.name}
               slugError={Boolean(errors.slug)}
               slugHelperText={errors.slug}
-            /> */}
+            />
             <Grid container spacing={0}>
               <RecipeIngredients
                 recipeIngredients={recipeIngredients}
@@ -257,7 +261,7 @@ const CreateIngredientForm = () => {
                 sm={4}
                 md={3}
               >
-                {/* <Field name="portions">
+                <Field name="subjectIds">
                   {({ field }: FieldProps) => (
                     <SubjectsField
                       {...field}
@@ -267,7 +271,7 @@ const CreateIngredientForm = () => {
                       label="Materias"
                     />
                   )}
-                </Field> */}
+                </Field>
               </Grid>
 
               {/* Submit button */}

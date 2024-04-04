@@ -35,7 +35,6 @@ export function useRecipes(
     const query = async () => {
       try {
         if (!proceedToRequest) return;
-        console.log('Buscando');
         const recipe = await getEntities();
         dispatch({ type: 'load', payload: recipe });
       } catch (error) {

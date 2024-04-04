@@ -76,6 +76,8 @@ const RecipeCover: FC<RecipeCoverProps> = ({
     setFieldValue('coverImage', fileUrl);
   };
 
+  console.log('coverImageurl', coverImageURL);
+
   return (
     <>
       <Box display="flex" pt={3} mb={3}>
@@ -127,7 +129,7 @@ const RecipeCover: FC<RecipeCoverProps> = ({
       </Box>
 
       <CardCover>
-        <CardMedia image={coverImageURL} />
+        <CardMedia image={coverImageURL} component="img" />
         <CardCoverAction>
           <Input
             accept="image/*"

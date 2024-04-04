@@ -14,7 +14,6 @@ const useIngredientsSelector = () => {
     };
     const query = queryString.stringify(params);
     const subjects = await api.get<Subject[]>('/subjects?' + query);
-    console.log('subjects', subjects);
     setSubjects(
       subjects.map((ingredient) => ({
         label: ingredient.name,

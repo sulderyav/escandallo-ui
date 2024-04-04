@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 
-import { OptionLabel, Ingredient } from 'src/utils/types';
+import { OptionLabel } from 'src/utils/types';
 import useIngredientsSelector from './useSubjectsSelector';
 
 type SubjectsFieldProps = {
   setFieldValue: (field: string, value: any) => void;
-  value: number[];
+  value: OptionLabel[];
   error: boolean;
   helperText: React.ReactNode;
   label: string;
@@ -16,13 +16,13 @@ type SubjectsFieldProps = {
 
 function SubjectsField({
   value,
+  setFieldValue,
   error,
   helperText,
   className,
   label,
   placeholder,
-}: // setFieldValue,
-SubjectsFieldProps) {
+}: SubjectsFieldProps) {
   const { ingredientsOptions } = useIngredientsSelector();
   const [open, setOpen] = useState(false);
   const loading = open && ingredientsOptions.length === 0;
@@ -30,30 +30,15 @@ SubjectsFieldProps) {
   return (
     <Autocomplete
       className={className}
-      // value={
-      //   ingredientsOptions.find((ingredient) => ingredient.value === value) ||
-      //   null
-      // }
+      value={value}
       open={open}
-      onOpen={() => {
-        setOpen(true);
-      }}
+      onOpen={() => setOpen(true)}
       multiple
-      onClose={() => {
-        setOpen(false);
-      }}
-      onChange={(_, ingredient: OptionLabel[]) => {
-        // setFieldValue('ingredientId', ingredient ? ingredient.value : 0);
-        // onChange(ingredientNumber, ingredient ? ingredient.value : 0);
-        console.log('ingredient', ingredient);
-      }}
-      // sx={{
-      //   width: '50%',
-      // }}
+      onClose={() => setOpen(false)}
+      onChange={(_, subjects: OptionLabel[]) =>
+        setFieldValue('subjectIds', subjects)
+      }
       fullWidth
-      // getOptionLabel={(option: OptionLabel) =>
-      //   `${option.value} - ${option.label}`
-      // }
       getOptionLabel={(option: OptionLabel) => `${option.label}`}
       options={ingredientsOptions}
       loading={loading}
