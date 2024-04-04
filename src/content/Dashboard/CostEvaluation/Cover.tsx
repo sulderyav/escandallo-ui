@@ -68,7 +68,7 @@ const RecipeCover: FC<RecipeCoverProps> = ({
   });
 
   const handleBack = (): void => {
-    return navigate(`/${location.pathname.split('/')[1]}/recipes`);
+    return navigate(`/management/recipes`);
   };
 
   const handleFileUpload = async (file: File) => {
@@ -126,7 +126,7 @@ const RecipeCover: FC<RecipeCoverProps> = ({
         </Box>
       </Box>
 
-      <CardCover>
+      {/* <CardCover>
         <CardMedia image={coverImageURL} component="img" />
         <CardCoverAction>
           <Input
@@ -154,7 +154,7 @@ const RecipeCover: FC<RecipeCoverProps> = ({
             </Button>
           </label>
         </CardCoverAction>
-      </CardCover>
+      </CardCover> */}
     </>
   );
 };

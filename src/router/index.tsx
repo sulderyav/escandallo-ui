@@ -7,6 +7,7 @@ import ExtendedSidebarLayout from 'src/layouts/ExtendedSidebarLayout';
 import baseRoutes from './base';
 import homeRoutes from './home';
 import managementRoutes from './management';
+import dashboardRoutes from './dashboard';
 
 const router: RouteObject[] = [
   {
@@ -25,6 +26,10 @@ const router: RouteObject[] = [
       {
         path: 'management',
         children: managementRoutes,
+      },
+      {
+        path: 'dashboard',
+        children: dashboardRoutes,
       },
     ],
   },

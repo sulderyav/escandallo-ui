@@ -50,8 +50,6 @@ const RecipeModal: FC<RecipeModalProps> = ({
   );
   const { recipe, loading } = useRecipes(getRecipe, open);
 
-  console.log('recipe', recipe);
-
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={onClose}>
       {loading && <CircularProgress />}
