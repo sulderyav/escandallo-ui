@@ -1,16 +1,9 @@
-import {
-  FormikErrors,
-  Formik,
-  Form,
-  FastField as Field,
-  FieldProps,
-} from 'formik';
+import { Formik, Form, FastField as Field, FieldProps } from 'formik';
 import { object, string } from 'yup';
 import {
   Box,
   Button,
   Grid,
-  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -26,6 +19,7 @@ import {
   parseMeassurementTypeToLabel,
 } from 'src/utils/types';
 import { useApiAuth } from 'src/hooks';
+import ImageField from './ImageField';
 
 const validationSchema = object().shape({
   slug: string().required('El slug es requerido'),
@@ -44,6 +38,7 @@ const defaultValues: CreateIngredient = {
   meassurementType: '',
   cost: 0,
   description: '',
+  image: '',
 };
 
 const CreateIngredientForm = () => {
@@ -230,9 +225,6 @@ const CreateIngredientForm = () => {
                 <Field name="meassurementType">
                   {({ field }: FieldProps) => (
                     <>
-                      {/* <InputLabel id="meassurement-type-selectore"> */}
-                      {/* Age */}
-                      {/* </InputLabel> */}
                       <Select
                         {...field}
                         labelId="meassurement-type-selectore"
@@ -307,6 +299,52 @@ const CreateIngredientForm = () => {
                       placeholder="Ej. 13.23"
                       error={Boolean(errors.cost)}
                       helperText={errors.cost}
+                    />
+                  )}
+                </Field>
+              </Grid>
+
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                md={3}
+                justifyContent="flex-end"
+                textAlign={{ sm: 'right' }}
+              >
+                <Box
+                  pr={3}
+                  sx={{
+                    pt: `${theme.spacing(2)}`,
+                    pb: { xs: 1, md: 0 },
+                  }}
+                  alignSelf="center"
+                >
+                  {/* <Tooltip
+                    placement="top"
+                    arrow
+                    title={`El tamaño de la imagen debe ser de ${store.size.catalogue.width}px x ${store.size.catalogue.height}px`}
+                  >
+                    <IconButton component="span" size="small" color="secondary">
+                      <ErrorOutlineTwoToneIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip> */}
+                  <b>Imagen:</b>
+                </Box>
+              </Grid>
+              <Grid
+                sx={{
+                  mb: `${theme.spacing(3)}`,
+                }}
+                item
+              >
+                <Field name="image">
+                  {({ field, form }: FieldProps) => (
+                    <ImageField
+                      setFieldValue={form.setFieldValue}
+                      value={field.value}
+                      error={Boolean(errors.image)}
+                      helperText={errors.image}
                     />
                   )}
                 </Field>

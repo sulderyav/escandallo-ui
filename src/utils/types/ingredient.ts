@@ -7,6 +7,7 @@ export interface Ingredient {
   description: string;
   meassurementType: MeassurementType;
   cost: number;
+  image: string;
   createdAt: string;
   updatedAt: string;
 }
