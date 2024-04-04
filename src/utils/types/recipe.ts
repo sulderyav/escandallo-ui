@@ -1,5 +1,6 @@
 import { OptionLabel } from './common';
 import { RecipeIngredient } from './ingredient';
+import { Subject } from './subject';
 
 export interface Recipe {
   id: number;
@@ -9,10 +10,11 @@ export interface Recipe {
   portions: number;
   coverImage: string;
   recipeIngredients: RecipeIngredient[];
+  subjects: Subject[];
 }
 
 export interface CreateRecipe
-  extends Omit<Recipe, 'id' | 'coverImage' | 'recipeIngredients'> {
+  extends Omit<Recipe, 'id' | 'coverImage' | 'recipeIngredients' | 'subjects'> {
   coverImage?: string;
   subjectIds?: OptionLabel[];
 }

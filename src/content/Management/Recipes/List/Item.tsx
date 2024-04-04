@@ -5,17 +5,16 @@ import {
   IconButton,
   Typography,
   styled,
-  useTheme,
   Divider,
   Button,
   Tooltip,
   lighten,
-  Dialog,
+  Link,
 } from '@mui/material';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
 import Text from 'src/components/Text';
-import { RecipeIngredient } from 'src/utils/types';
+import { RecipeIngredient, Subject } from 'src/utils/types';
 import RecipeModal from '../Recipe';
 import { useState } from 'react';
 
@@ -68,11 +67,11 @@ type RecipeItemProps = {
 function RecipeItem(props: RecipeItemProps) {
   const [open, setOpen] = useState(false);
 
-  const handleCreateUserOpen = () => {
+  const handleOpenRecipeModal = () => {
     setOpen(true);
   };
 
-  const handleCreateUserClose = () => {
+  const handleCloseRecipeModal = () => {
     setOpen(false);
   };
 
@@ -89,6 +88,7 @@ function RecipeItem(props: RecipeItemProps) {
           <CardMedia
             sx={{
               minHeight: 180,
+              cursor: 'pointer',
             }}
             component="img"
             src={props.image}
@@ -96,34 +96,23 @@ function RecipeItem(props: RecipeItemProps) {
               e.currentTarget.src =
                 'https://cdn-icons-png.flaticon.com/512/2729/2729077.png';
             }}
+            onClick={handleOpenRecipeModal}
           />
           <Divider />
-          <Box px={2} onClick={handleCreateUserOpen}>
-            <Typography
-              sx={{
-                mt: 2,
-              }}
+          <Box px={2} py={1}>
+            <Link
               variant="h4"
-              gutterBottom
+              noWrap
+              onClick={handleOpenRecipeModal}
+              style={{ cursor: 'pointer' }}
             >
               {props.name}
-            </Typography>
+            </Link>
           </Box>
           <Box px={2} display="flex" flexDirection="column">
             <Box>
               <Typography variant="subtitle2">
                 Porciones: <Text color="black"> {props.portions}</Text>
-              </Typography>
-            </Box>
-            <Box>
-              <Typography variant="subtitle2">
-                Ingredientes:{' '}
-                <Text color="black">
-                  {' '}
-                  {props.recipeIngredients
-                    .map((ingredient) => ingredient.ingredient.name)
-                    .join(', ')}
-                </Text>
               </Typography>
             </Box>
           </Box>
@@ -156,7 +145,7 @@ function RecipeItem(props: RecipeItemProps) {
       </CardWrapper>
 
       <RecipeModal
-        onClose={handleCreateUserClose}
+        onClose={handleCloseRecipeModal}
         open={open}
         recipeId={props.id}
         onDelete={() => {}}

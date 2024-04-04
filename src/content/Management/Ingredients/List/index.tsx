@@ -66,9 +66,9 @@ const IngredientsList = () => {
           </Grid>
         </Grid>
       </Card>
-      <Grid container spacing={3}>
+      <Grid container spacing={4}>
         {ingredients.map((ingredient) => (
-          <Grid item key={ingredient.id} xs={12} sm={4} md={2}>
+          <Grid item key={ingredient.id} xs={12} sm={4} lg={3}>
             <Ingredient {...ingredient} />
           </Grid>
         ))}

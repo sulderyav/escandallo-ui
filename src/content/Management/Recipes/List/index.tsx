@@ -21,6 +21,7 @@ const RecipesList = () => {
   const getRecipes = async () => {
     const params = {
       ignorePagination: true,
+      order: 'DESC',
     };
     const query = queryString.stringify(params);
     return await get<RecipeType[]>('/recipes?' + query);
@@ -65,9 +66,9 @@ const RecipesList = () => {
           </Grid>
         </Grid>
       </Card>
-      <Grid container spacing={3}>
+      <Grid container spacing={4}>
         {recipes.map((recipe) => (
-          <Grid item key={recipe.id} xs={12} sm={4} md={2}>
+          <Grid item key={recipe.id} xs={12} sm={4} lg={3}>
             <Recipe
               {...recipe}
               image={recipe.coverImage}

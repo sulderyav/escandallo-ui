@@ -1,9 +1,11 @@
 import {
   Box,
+  Button,
   Card,
   CardMedia,
   CircularProgress,
   Dialog,
+  DialogActions,
   DialogContent,
   DialogTitle,
   Typography,
@@ -48,6 +50,8 @@ const RecipeModal: FC<RecipeModalProps> = ({
   );
   const { recipe, loading } = useRecipes(getRecipe, open);
 
+  console.log('recipe', recipe);
+
   return (
     <Dialog fullWidth maxWidth="md" open={open} onClose={onClose}>
       {loading && <CircularProgress />}
@@ -58,7 +62,7 @@ const RecipeModal: FC<RecipeModalProps> = ({
               p: 3,
             }}
           >
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h3" gutterBottom>
               {recipe.name}
             </Typography>
             <Typography variant="subtitle2">
@@ -83,26 +87,57 @@ const RecipeModal: FC<RecipeModalProps> = ({
                 </CardCover>
 
                 <Box>
-                  <Typography variant="h6" gutterBottom>
-                    Ingredientes
-                  </Typography>
-                  <Box>
-                    <ul>
-                      {recipe.recipeIngredients.map((recipeIngredient) => (
-                        <li key={recipeIngredient.id}>
-                          {recipeIngredient.ingredient.name} -{' '}
-                          {recipeIngredient.quantity}{' '}
-                          {parseMeassurementTypeToLabel(
-                            recipeIngredient.ingredient.meassurementType
-                          )}
-                        </li>
-                      ))}
-                    </ul>
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="h5" gutterBottom>
+                      Ingredientes
+                    </Typography>
+                    <Box>
+                      <ul>
+                        {recipe.recipeIngredients.map((recipeIngredient) => (
+                          <li key={recipeIngredient.id}>
+                            {recipeIngredient.quantity}{' '}
+                            {parseMeassurementTypeToLabel(
+                              recipeIngredient.ingredient.meassurementType
+                            )}
+                            {' de '}
+                            {recipeIngredient.ingredient.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </Box>
                   </Box>
-                </Box>
 
-                <span dangerouslySetInnerHTML={{ __html: recipe.steps }}></span>
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="h5" gutterBottom>
+                      Procedimiento
+                    </Typography>
+                    <Box>
+                      <span
+                        dangerouslySetInnerHTML={{ __html: recipe.steps }}
+                      ></span>
+                    </Box>
+                  </Box>
+
+                  {recipe.subjects && recipe.subjects.length > 0 && (
+                    <Box sx={{ mt: 2 }}>
+                      <Typography variant="h5" gutterBottom>
+                        Materias relacionadas
+                      </Typography>
+                      <Box>
+                        {recipe.subjects.map((subject) => (
+                          <Box key={subject.id}>{subject.name}</Box>
+                        ))}
+                      </Box>
+                    </Box>
+                  )}
+                </Box>
               </Scrollbar>
+
+              <DialogActions>
+                {/* <Button onClick={onEdit}>Editar</Button>
+                <Button onClick={onDelete}>Eliminar</Button> */}
+                <Button onClick={onClose}>Cerrar</Button>
+              </DialogActions>
             </Box>
           </DialogContent>
         </>
