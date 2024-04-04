@@ -25,3 +25,4 @@ export * from './message';
 export * from './category';
 export * from './attachment';
 export * from './recipe';
+export * from './subject';

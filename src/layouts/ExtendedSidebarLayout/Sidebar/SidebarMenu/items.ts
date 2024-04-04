@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen';
+import CoPresentIcon from '@mui/icons-material/CoPresent';
 
 import { RoleNames } from 'src/utils/types';
 
@@ -34,6 +35,11 @@ const menuItems: MenuItems[] = [
         name: 'Recetas',
         icon: SoupKitchenIcon,
         link: '/management/recipes',
+      },
+      {
+        name: 'Materias',
+        link: '/management/subjects/list',
+        icon: CoPresentIcon,
       },
     ],
   },

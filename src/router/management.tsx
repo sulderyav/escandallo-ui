@@ -21,6 +21,7 @@ const Recipes = Loader(lazy(() => import('src/content/Management/Recipes')));
 const CreateRecipe = Loader(
   lazy(() => import('src/content/Management/Recipes/Create'))
 );
+const Subjects = Loader(lazy(() => import('src/content/Management/Subjects')));
 
 const homeRoutes = [
   {
@@ -46,6 +47,10 @@ const homeRoutes = [
   {
     path: 'recipes/:id',
     element: <Navigate to="/recipes" />,
+  },
+  {
+    path: 'subjects/*',
+    element: <Subjects />,
   },
 ];
 
