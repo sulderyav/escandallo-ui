@@ -7,14 +7,24 @@ import {
 } from 'formik';
 import { object, string, number } from 'yup';
 import { Box, Grid, TextField, useTheme } from '@mui/material';
+import slugify from 'slugify';
+
 import { CreateSubject } from 'src/utils/types';
 import { TextsType } from 'src/components/Administration/Router';
 
 const schema = object().shape({
+  slug: string()
+    .required('Este campo es requerido')
+    // Test if the value is a valid slug
+    .matches(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      'Debe ser un slug válido. No se permiten espacios ni caracteres especiales.'
+    ),
   name: string().required('Este campo es requerido'),
 });
 
 const defaultValues: CreateSubject = {
+  slug: '',
   name: '',
 };
 export type FormProps = {
@@ -56,12 +66,53 @@ function ParticipantAddressForm({
           }
         }}
         validateOnBlur={true}
-        validateOnChange={false}
+        validateOnChange={true}
         validationSchema={schema}
       >
         {({ errors, setFieldValue }) => (
           <Form>
             <Grid container spacing={0}>
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                md={3}
+                justifyContent="flex-end"
+                textAlign={{ sm: 'right' }}
+              >
+                <Box
+                  pr={3}
+                  sx={{
+                    pt: `${theme.spacing(2)}`,
+                    pb: { xs: 1, md: 0 },
+                  }}
+                  alignSelf="center"
+                >
+                  <b>Slug:</b>
+                </Box>
+              </Grid>
+              <Grid
+                sx={{
+                  mb: `${theme.spacing(3)}`,
+                }}
+                item
+                xs={12}
+                sm={8}
+                md={9}
+              >
+                <Field name="slug">
+                  {({ field }: FieldProps) => (
+                    <TextField
+                      {...field}
+                      label="Slug"
+                      placeholder="Ej. cocina-fria"
+                      error={Boolean(errors.slug)}
+                      helperText={errors.slug}
+                      disabled
+                    />
+                  )}
+                </Field>
+              </Grid>
               <Grid
                 item
                 xs={12}
@@ -98,6 +149,16 @@ function ParticipantAddressForm({
                       placeholder="Ej. Repostería 1"
                       error={Boolean(errors.name)}
                       helperText={errors.name}
+                      onChange={(e) => {
+                        setFieldValue(
+                          'slug',
+                          slugify(e.target.value, {
+                            replacement: '-',
+                            lower: true,
+                          })
+                        );
+                        setFieldValue('name', e.target.value);
+                      }}
                     />
                   )}
                 </Field>

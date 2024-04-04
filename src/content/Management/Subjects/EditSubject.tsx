@@ -15,14 +15,13 @@ function EditSubject({
   async function loadSubjects(id: string) {
     const subject = await get<Subject>(`/subjects/${id}`);
     const editSubject: EditSubjectType = {
-      id: subject.id,
-      name: subject.name,
+      ...subject,
     };
     return editSubject;
   }
 
   async function updateSubject(subject: any, id: string) {
-    await put(`/subject/${id}`, {
+    await put(`/subjects/${id}`, {
       ...subject,
     });
   }

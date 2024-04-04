@@ -15,13 +15,9 @@ function NewSubject({
   const { post } = useApiAuth();
 
   async function createSubject(values: any) {
-    try {
-      await post('/subjects', {
-        ...values,
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    await post('/subjects', {
+      ...values,
+    });
   }
 
   return (

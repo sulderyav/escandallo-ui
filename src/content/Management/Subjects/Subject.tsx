@@ -38,14 +38,23 @@ function Subject({
                       <Grid item xs={4} className={styles.labelText}>
                         <Box className={styles.box}>ID:</Box>
                       </Grid>
-                      <Grid item xs={8} className={styles.boldText}>
+                      <Grid item xs={8}>
                         {subject.id}
                       </Grid>
                       <Grid item xs={4} className={styles.labelText}>
                         <Box className={styles.box}>Nombre:</Box>
                       </Grid>
-                      <Grid item xs={8}>
+                      <Grid item xs={8} className={styles.boldText}>
                         {subject.name || 'N/A'}
+                      </Grid>
+                      <Grid item xs={4} className={styles.labelText}>
+                        <Box className={styles.box}>Fecha Creación:</Box>
+                      </Grid>
+                      <Grid item xs={8}>
+                        {format(
+                          new Date(subject.createdAt),
+                          'dd/MM/yyyy HH:mm'
+                        ) || 'N/A'}
                       </Grid>
                     </Grid>
                   </Typography>
