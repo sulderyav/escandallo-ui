@@ -1,85 +1,38 @@
-import { FC } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, useState } from 'react';
 import {
   Box,
   Typography,
-  Card,
   Tooltip,
-  CardMedia,
-  Button,
   IconButton,
-  styled,
   TextField,
   CircularProgress,
+  Autocomplete,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
-import { useNavigate, useLocation } from 'react-router-dom';
-import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone';
+import { useNavigate } from 'react-router-dom';
 
-import { useUploadFile } from 'src/hooks';
-
-const Input = styled('input')({
-  display: 'none',
-});
-
-const CardCover = styled(Card)(
-  ({ theme }) => `
-    position: relative;
-
-    .MuiCardMedia-root {
-      height: ${theme.spacing(38)};
-    }
-`
-);
-
-const CardCoverAction = styled(Box)(
-  ({ theme }) => `
-    position: absolute;
-    right: ${theme.spacing(2)};
-    bottom: ${theme.spacing(2)};
-`
-);
+import useRecipeSelector from './useRecipeSelector';
+import { OptionLabel, Recipe } from 'src/utils/types';
 
 interface RecipeCoverProps {
-  name: string;
-  slug: string;
-  coverImageURL: string;
-  setFieldValue: (field: string, value: any) => void;
-  nameError: boolean;
-  nameHelperText: React.ReactNode;
-  slugError: boolean;
-  slugHelperText: React.ReactNode;
+  selectRecipe: (recipeId: number) => void;
 }
 
-const RecipeCover: FC<RecipeCoverProps> = ({
-  name,
-  slug,
-  coverImageURL,
-  setFieldValue,
-  nameError,
-  nameHelperText,
-}) => {
-  const { t }: { t: any } = useTranslation();
+const RecipeCover: FC<RecipeCoverProps> = ({ selectRecipe }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { uploadFile, loading: uploadingCoverImage } = useUploadFile({
-    destination: 'recipes/images',
-  });
+  const { recipeOptions } = useRecipeSelector();
+  const [open, setOpen] = useState(false);
+  const loading = open && recipeOptions.length === 0;
 
   const handleBack = (): void => {
     return navigate(`/management/recipes`);
   };
 
-  const handleFileUpload = async (file: File) => {
-    const fileUrl = await uploadFile(file);
-    setFieldValue('coverImage', fileUrl);
-  };
-
   return (
     <>
       <Box display="flex" pt={3} mb={3}>
-        <Tooltip arrow placement="top" title={t('Go back')}>
+        <Tooltip arrow placement="top" title="Regresar">
           <IconButton
             onClick={handleBack}
             color="primary"
@@ -100,23 +53,51 @@ const RecipeCover: FC<RecipeCoverProps> = ({
               }}
             >
               Receta:
-              <TextField
-                label="Nombre de la receta"
-                placeholder="Ej. Ceviche de Camarón"
-                sx={{ ml: 2 }}
-                error={nameError}
-                helperText={nameHelperText}
-                value={name}
-                onChange={(e) => setFieldValue('name', e.target.value)}
+              <Autocomplete
+                open={open}
+                onOpen={() => setOpen(true)}
+                onClose={() => setOpen(false)}
+                onChange={(_, recipe: OptionLabel) =>
+                  selectRecipe(recipe.value)
+                }
+                sx={{
+                  ml: 2,
+                }}
+                fullWidth
+                getOptionLabel={(option: OptionLabel) => `${option.label}`}
+                options={recipeOptions}
+                loading={loading}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    // label={label}
+                    label="Receta"
+                    // placeholder={placeholder}
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <React.Fragment>
+                          {loading ? (
+                            <CircularProgress color="inherit" size={20} />
+                          ) : null}
+                          {params.InputProps.endAdornment}
+                        </React.Fragment>
+                      ),
+                    }}
+                  />
+                )}
               />
               <TextField
-                label="Slug"
-                placeholder="Ej. ceviche-de-camaron"
+                label="Porciones"
+                placeholder="Selecciona una receta"
+                type="number"
                 sx={{ ml: 2 }}
-                error={nameError}
-                helperText={nameHelperText}
-                value={slug}
-                onChange={(e) => setFieldValue('slug', e.target.value)}
+                // error={nameError}
+                // helperText={nameHelperText}
+                // value={slug}
+                // onChange={(e) => setFieldValue('slug', e.target.value)}
               />
             </Box>
           </Typography>
