@@ -25,7 +25,7 @@ const RecipesList = () => {
     const query = queryString.stringify(params);
     return await get<RecipeType[]>('/recipes?' + query);
   };
-  const { loading, entities: recipes } = useRecipes(getRecipes);
+  const { entities: recipes } = useRecipes(getRecipes);
   const navigate = useNavigate();
 
   return (

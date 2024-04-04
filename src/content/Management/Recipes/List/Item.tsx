@@ -10,15 +10,14 @@ import {
   Button,
   Tooltip,
   lighten,
+  Dialog,
 } from '@mui/material';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
 import Text from 'src/components/Text';
-import {
-  MeassurementType,
-  RecipeIngredient,
-  parseMeassurementTypeToLabel,
-} from 'src/utils/types';
+import { RecipeIngredient } from 'src/utils/types';
+import RecipeModal from '../Recipe';
+import { useState } from 'react';
 
 const IconButtonError = styled(IconButton)(
   ({ theme }) => `
@@ -67,80 +66,103 @@ type RecipeItemProps = {
 };
 
 function RecipeItem(props: RecipeItemProps) {
-  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+
+  const handleCreateUserOpen = () => {
+    setOpen(true);
+  };
+
+  const handleCreateUserClose = () => {
+    setOpen(false);
+  };
 
   return (
-    <CardWrapper>
-      <Box
-        sx={{
-          position: 'relative',
-          zIndex: '2',
-        }}
-      >
-        <Divider />
-        <CardMedia
+    <>
+      <CardWrapper>
+        <Box
           sx={{
-            minHeight: 180,
+            position: 'relative',
+            zIndex: '2',
           }}
-          component="img"
-          src={props.image}
-          onError={(e: any) => {
-            e.currentTarget.src =
-              'https://cdn-icons-png.flaticon.com/512/2729/2729077.png';
-          }}
-        />
-        <Divider />
-        <Box px={2}>
-          <Typography
+        >
+          <Divider />
+          <CardMedia
             sx={{
-              mt: 2,
+              minHeight: 180,
             }}
-            variant="h4"
-            gutterBottom
-          >
-            {props.name}
-          </Typography>
-        </Box>
-        <Box px={2} display="flex" flexDirection="column">
-          <Box>
-            <Typography variant="subtitle2">
-              Porciones: <Text color="black"> {props.portions}</Text>
-            </Typography>
-          </Box>
-          <Box>
-            <Typography variant="subtitle2">
-              Ingredientes:{' '}
-              <Text color="black">
-                {' '}
-                {props.recipeIngredients
-                  .map((ingredient) => ingredient.ingredient.name)
-                  .join(', ')}
-              </Text>
-            </Typography>
-          </Box>
-        </Box>
-        <Divider />
-        <Box p={2} display="flex" alignItems="center" justifyContent="flex-end">
-          <Box>
-            <Button
+            component="img"
+            src={props.image}
+            onError={(e: any) => {
+              e.currentTarget.src =
+                'https://cdn-icons-png.flaticon.com/512/2729/2729077.png';
+            }}
+          />
+          <Divider />
+          <Box px={2} onClick={handleCreateUserOpen}>
+            <Typography
               sx={{
-                mr: 1,
+                mt: 2,
               }}
-              size="small"
-              variant="contained"
-              color="primary"
+              variant="h4"
+              gutterBottom
             >
-              Editar
-            </Button>
-            <Tooltip title="Borrar" arrow>
-              <IconButtonError onClick={() => {}} color="primary">
-                <DeleteTwoToneIcon fontSize="small" />
-              </IconButtonError>
-            </Tooltip>
+              {props.name}
+            </Typography>
+          </Box>
+          <Box px={2} display="flex" flexDirection="column">
+            <Box>
+              <Typography variant="subtitle2">
+                Porciones: <Text color="black"> {props.portions}</Text>
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="subtitle2">
+                Ingredientes:{' '}
+                <Text color="black">
+                  {' '}
+                  {props.recipeIngredients
+                    .map((ingredient) => ingredient.ingredient.name)
+                    .join(', ')}
+                </Text>
+              </Typography>
+            </Box>
+          </Box>
+          <Divider />
+          <Box
+            p={2}
+            display="flex"
+            alignItems="center"
+            justifyContent="flex-end"
+          >
+            <Box>
+              <Button
+                sx={{
+                  mr: 1,
+                }}
+                size="small"
+                variant="contained"
+                color="primary"
+              >
+                Editar
+              </Button>
+              <Tooltip title="Borrar" arrow>
+                <IconButtonError onClick={() => {}} color="primary">
+                  <DeleteTwoToneIcon fontSize="small" />
+                </IconButtonError>
+              </Tooltip>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </CardWrapper>
+      </CardWrapper>
+
+      <RecipeModal
+        onClose={handleCreateUserClose}
+        open={open}
+        recipeId={props.id}
+        onDelete={() => {}}
+        onEdit={() => {}}
+      />
+    </>
   );
 }
 
