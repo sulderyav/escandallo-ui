@@ -10,11 +10,14 @@ import {
   IconButton,
   styled,
   TextField,
+  CircularProgress,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import { useNavigate, useLocation } from 'react-router-dom';
 import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone';
+
+import { useUploadFile } from 'src/hooks';
 
 const Input = styled('input')({
   display: 'none',
@@ -60,9 +63,17 @@ const RecipeCover: FC<RecipeCoverProps> = ({
   const { t }: { t: any } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const { uploadFile, loading: uploadingCoverImage } = useUploadFile({
+    destination: 'recipes/images',
+  });
 
   const handleBack = (): void => {
     return navigate(`/${location.pathname.split('/')[1]}/recipes`);
+  };
+
+  const handleFileUpload = async (file: File) => {
+    const fileUrl = await uploadFile(file);
+    setFieldValue('coverImage', fileUrl);
   };
 
   return (
@@ -118,10 +129,24 @@ const RecipeCover: FC<RecipeCoverProps> = ({
       <CardCover>
         <CardMedia image={coverImageURL} />
         <CardCoverAction>
-          <Input accept="image/*" id="change-cover" multiple type="file" />
+          <Input
+            accept="image/*"
+            id="change-cover"
+            type="file"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) handleFileUpload(file);
+            }}
+          />
           <label htmlFor="change-cover">
             <Button
-              startIcon={<UploadTwoToneIcon />}
+              startIcon={
+                uploadingCoverImage ? (
+                  <CircularProgress size={20} />
+                ) : (
+                  <UploadTwoToneIcon />
+                )
+              }
               variant="contained"
               component="span"
             >

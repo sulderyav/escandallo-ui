@@ -1,18 +1,9 @@
-import {
-  FormikErrors,
-  Formik,
-  Form,
-  FastField as Field,
-  FieldProps,
-} from 'formik';
+import { Formik, Form, FastField as Field, FieldProps } from 'formik';
 import { object, string } from 'yup';
 import {
   Box,
   Button,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   TextField,
   Typography,
   styled,
@@ -73,8 +64,6 @@ const validationSchema = object().shape({
   slug: string().required('El slug es requerido'),
   name: string().required('El nombre es requerido'),
   steps: string().required('Los pasos son requeridos'),
-  // portions: string().required('Las porciones son requeridas'),
-  // Portions is required and must be a number and more than 0
   portions: string()
     .required('Las porciones son requeridas')
     .test('isNumber', 'Las porciones deben ser un número', (value) => {
@@ -94,7 +83,7 @@ const defaultValues: CreateRecipe = {
   name: '',
   steps: '',
   portions: 0,
-  // coverImage: '',
+  coverImage: '',
 };
 
 const CreateIngredientForm = () => {
@@ -166,10 +155,7 @@ const CreateIngredientForm = () => {
             <Cover
               name={values.name}
               slug={values.slug}
-              coverImageURL={
-                values.coverImage ||
-                'https://i0.wp.com/recetaskwa.com/wp-content/uploads/2023/09/encebollado.jpg?ssl=1'
-              }
+              coverImageURL={values.coverImage || ''}
               setFieldValue={setFieldValue}
               nameError={Boolean(errors.name)}
               nameHelperText={errors.name}

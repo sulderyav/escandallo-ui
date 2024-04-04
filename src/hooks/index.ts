@@ -6,3 +6,4 @@ export * from './useTickets';
 export * from './useMessages';
 export * from './useForm';
 export * from './useWorkingTickets';
+export * from './useUploadFile';
