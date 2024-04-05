@@ -7,6 +7,7 @@ import {
   TextField,
   CircularProgress,
   Autocomplete,
+  Button,
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
@@ -17,9 +18,14 @@ import { OptionLabel, Recipe } from 'src/utils/types';
 
 interface RecipeCoverProps {
   selectRecipe: (recipeId: number) => void;
+  setPax: (pax: number) => void;
 }
 
-const RecipeCover: FC<RecipeCoverProps> = ({ selectRecipe }) => {
+const RecipeCover: FC<RecipeCoverProps> = ({
+  selectRecipe,
+  setPax: setPax1,
+}) => {
+  const [pax, setPax] = useState<number>(0);
   const navigate = useNavigate();
   const { recipeOptions } = useRecipeSelector();
   const [open, setOpen] = useState(false);
@@ -70,9 +76,7 @@ const RecipeCover: FC<RecipeCoverProps> = ({ selectRecipe }) => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    // label={label}
                     label="Receta"
-                    // placeholder={placeholder}
                     variant="outlined"
                     fullWidth
                     InputProps={{
@@ -94,48 +98,28 @@ const RecipeCover: FC<RecipeCoverProps> = ({ selectRecipe }) => {
                 placeholder="Selecciona una receta"
                 type="number"
                 sx={{ ml: 2 }}
-                // error={nameError}
-                // helperText={nameHelperText}
-                // value={slug}
-                // onChange={(e) => setFieldValue('slug', e.target.value)}
+                value={pax || ''}
+                onChange={(e) => setPax(parseInt(e.target.value))}
               />
+              <Button
+                sx={{ ml: 2 }}
+                variant="contained"
+                onClick={() => {
+                  // console.log(`Calcular escandallo para ${pax} porciones`);
+                  setPax(pax);
+                  setPax1(pax);
+                }}
+                disabled={!pax}
+              >
+                Calcular
+              </Button>
             </Box>
           </Typography>
           <Typography variant="subtitle2">
-            Crea una nueva receta para tu repositorio
+            Selecciona una receta para poder realizar el cálculo del escandallo
           </Typography>
         </Box>
       </Box>
-
-      {/* <CardCover>
-        <CardMedia image={coverImageURL} component="img" />
-        <CardCoverAction>
-          <Input
-            accept="image/*"
-            id="change-cover"
-            type="file"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (file) handleFileUpload(file);
-            }}
-          />
-          <label htmlFor="change-cover">
-            <Button
-              startIcon={
-                uploadingCoverImage ? (
-                  <CircularProgress size={20} />
-                ) : (
-                  <UploadTwoToneIcon />
-                )
-              }
-              variant="contained"
-              component="span"
-            >
-              Actualizar portada
-            </Button>
-          </label>
-        </CardCoverAction>
-      </CardCover> */}
     </>
   );
 };
