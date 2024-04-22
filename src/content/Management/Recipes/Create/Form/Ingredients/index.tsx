@@ -60,7 +60,7 @@ const RecipesIngredients: FC<{
             marginRight: '10px',
           }}
           onChange={(e) => updateQuantity(0, Number(e.target.value))}
-          value={recipeIngredients[0].quantity}
+          value={recipeIngredients[0].grossWeight}
         />
         <IngredientField
           label="Ingrediente 1"
@@ -112,7 +112,7 @@ const RecipesIngredients: FC<{
             marginRight: '10px',
           }}
           onChange={(e) => updateQuantity(1, Number(e.target.value))}
-          value={recipeIngredients[1].quantity}
+          value={recipeIngredients[1].grossWeight}
         />
         <IngredientField
           label="Ingrediente 2"
@@ -164,7 +164,7 @@ const RecipesIngredients: FC<{
             marginRight: '10px',
           }}
           onChange={(e) => updateQuantity(2, Number(e.target.value))}
-          value={recipeIngredients[2].quantity}
+          value={recipeIngredients[2].grossWeight}
         />
         <IngredientField
           label="Ingrediente 3"

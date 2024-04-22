@@ -52,7 +52,7 @@ const CreateIngredientForm = () => {
                 <ul>
                   {recipe.recipeIngredients.map((recipeIngredient) => (
                     <li key={recipeIngredient.id}>
-                      {recipeIngredient.quantity * (pax || recipe.portions)}{' '}
+                      {recipeIngredient.grossWeight * (pax || recipe.portions)}{' '}
                       {parseMeassurementTypeToLabel(
                         recipeIngredient.ingredient.meassurementType
                       )}

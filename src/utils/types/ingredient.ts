@@ -50,7 +50,11 @@ export const parseMeassurementTypeToLabel = (
 
 export interface RecipeIngredient {
   id: number;
-  quantity: number;
+  grossWeight: number;
+  netWeight: number;
+  waste: number;
+  totalCost: number;
+  output: number;
   ingredient: Ingredient;
   recipe: Recipe;
 }

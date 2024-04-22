@@ -98,25 +98,37 @@ const CreateIngredientForm = () => {
     CreateRecipeIngredient[]
   >([
     {
-      quantity: 0,
+      grossWeight: 0,
+      netWeight: 0,
+      waste: 0,
+      totalCost: 0,
       ingredientId: 0,
       recipeId: 0,
+      output: 0,
     },
     {
-      quantity: 0,
+      grossWeight: 0,
+      netWeight: 0,
+      waste: 0,
+      totalCost: 0,
       ingredientId: 0,
       recipeId: 0,
+      output: 0,
     },
     {
-      quantity: 0,
+      grossWeight: 0,
+      netWeight: 0,
+      waste: 0,
+      totalCost: 0,
       ingredientId: 0,
       recipeId: 0,
+      output: 0,
     },
   ]);
 
   const updateQuantity = (index: number, quantity: number) => {
     const updatedIngredients = [...recipeIngredients];
-    updatedIngredients[index].quantity = quantity;
+    updatedIngredients[index].grossWeight = quantity;
     setRecipeIngredients(updatedIngredients);
   };
 

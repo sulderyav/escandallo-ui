@@ -93,7 +93,7 @@ const RecipeModal: FC<RecipeModalProps> = ({
                       <ul>
                         {recipe.recipeIngredients.map((recipeIngredient) => (
                           <li key={recipeIngredient.id}>
-                            {recipeIngredient.quantity}{' '}
+                            {recipeIngredient.grossWeight}{' '}
                             {parseMeassurementTypeToLabel(
                               recipeIngredient.ingredient.meassurementType
                             )}
