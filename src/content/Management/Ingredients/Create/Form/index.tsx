@@ -25,9 +25,8 @@ const validationSchema = object().shape({
   slug: string().required('El slug es requerido'),
   name: string().required('El nombre es requerido'),
   meassurementType: string().required('El tipo de medida es requerido'),
-  // cost: string().required('El costo es requerido'),
   // Cost is required but it's a number, it has to be positive
-  cost: string()
+  unitPrice: string()
     .required('El costo es requerido')
     .matches(/^[0-9]*[.]?[0-9]*$/, 'El costo debe ser un número positivo'),
 });
@@ -36,7 +35,7 @@ const defaultValues: CreateIngredient = {
   slug: '',
   name: '',
   meassurementType: '',
-  cost: 0,
+  unitPrice: 0,
   description: '',
   image: '',
 };
@@ -231,9 +230,9 @@ const CreateIngredientForm = () => {
                         id="meassurement-type-selectore"
                         autoWidth
                       >
-                        <MenuItem value={MeassurementType.GRAM}>
+                        {/* <MenuItem value={MeassurementType.GRAM}>
                           {parseMeassurementTypeToLabel(MeassurementType.GRAM)}
-                        </MenuItem>
+                        </MenuItem> */}
                         <MenuItem value={MeassurementType.KILOGRAM}>
                           {parseMeassurementTypeToLabel(
                             MeassurementType.KILOGRAM
@@ -242,13 +241,16 @@ const CreateIngredientForm = () => {
                         <MenuItem value={MeassurementType.LITER}>
                           {parseMeassurementTypeToLabel(MeassurementType.LITER)}
                         </MenuItem>
-                        <MenuItem value={MeassurementType.MILLILITER}>
+                        {/* <MenuItem value={MeassurementType.MILLILITER}>
                           {parseMeassurementTypeToLabel(
                             MeassurementType.MILLILITER
                           )}
-                        </MenuItem>
-                        <MenuItem value={MeassurementType.PIECE}>
+                        </MenuItem> */}
+                        {/* <MenuItem value={MeassurementType.PIECE}>
                           {parseMeassurementTypeToLabel(MeassurementType.PIECE)}
+                        </MenuItem> */}
+                        <MenuItem value={MeassurementType.UNITS}>
+                          {parseMeassurementTypeToLabel(MeassurementType.UNITS)}
                         </MenuItem>
                       </Select>
                     </>
@@ -291,14 +293,14 @@ const CreateIngredientForm = () => {
                 sm={8}
                 md={9}
               >
-                <Field name="cost">
+                <Field name="unitPrice">
                   {({ field }: FieldProps) => (
                     <TextField
                       {...field}
                       label="Costo"
                       placeholder="Ej. 13.23"
-                      error={Boolean(errors.cost)}
-                      helperText={errors.cost}
+                      error={Boolean(errors.unitPrice)}
+                      helperText={errors.unitPrice}
                     />
                   )}
                 </Field>

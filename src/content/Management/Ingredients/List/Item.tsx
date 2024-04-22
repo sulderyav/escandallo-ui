@@ -60,14 +60,12 @@ type IngredientItemProps = {
   slug: string;
   name: string;
   image: string;
-  cost: number;
+  unitPrice: number;
   meassurementType: MeassurementType;
   onClick: () => void; // Add onClick handler
 };
 
 function IngredientItem(props: IngredientItemProps) {
-  const theme = useTheme();
-
   return (
     <CardWrapper>
       <Box
@@ -103,7 +101,7 @@ function IngredientItem(props: IngredientItemProps) {
         <Box px={2} display="flex" flexDirection="column">
           <Box>
             <Typography variant="subtitle2">
-              Costo: <Text color="black">$ {props.cost}</Text>
+              Costo: <Text color="black">$ {props.unitPrice}</Text>
             </Typography>
           </Box>
           <Box>

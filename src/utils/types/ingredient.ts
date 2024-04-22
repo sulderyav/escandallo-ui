@@ -6,7 +6,7 @@ export interface Ingredient {
   name: string;
   description: string;
   meassurementType: MeassurementType;
-  cost: number;
+  unitPrice: number;
   image: string;
   createdAt: string;
   updatedAt: string;
@@ -21,27 +21,30 @@ export interface CreateIngredient
 }
 
 export enum MeassurementType {
-  GRAM = 'GRAM',
+  // GRAM = 'GRAM',
   KILOGRAM = 'KILOGRAM',
   LITER = 'LITER',
-  MILLILITER = 'MILLILITER',
-  PIECE = 'PIECE',
+  // MILLILITER = 'MILLILITER',
+  // PIECE = 'PIECE',
+  UNITS = 'UNITS',
 }
 
 export const parseMeassurementTypeToLabel = (
   meassurementType: MeassurementType
 ) => {
   switch (meassurementType) {
-    case MeassurementType.GRAM:
-      return 'Gramos';
+    // case MeassurementType.GRAM:
+    //   return 'Gramos';
     case MeassurementType.KILOGRAM:
       return 'Kilogramo';
     case MeassurementType.LITER:
       return 'Litro';
-    case MeassurementType.MILLILITER:
-      return 'Mililitro';
-    case MeassurementType.PIECE:
-      return 'Pieza';
+    // case MeassurementType.MILLILITER:
+    //   return 'Mililitro';
+    // case MeassurementType.PIECE:
+    //   return 'Pieza';
+    case MeassurementType.UNITS:
+      return 'Unidades';
   }
 };
 

@@ -18,7 +18,6 @@ export * from './catalogue';
 export * from './participantInvoice';
 export * from './sku';
 export * from './transaction';
-export * from './personalShopperWishlist';
 export * from './job';
 export * from './ticket';
 export * from './message';

@@ -29,9 +29,9 @@ const Authenticated: FC<AuthenticatedProps> = (props: { children: any }) => {
   }
 
   // TODO: Redirect based on user role
-  // Redirect to home page
   if (location.pathname === '/') {
-    return <Navigate to="/home/user-dashboard" replace />;
+    // FYI: This is where the main page redirection happens
+    return <Navigate to="/management/recipes" replace />;
   }
 
   return <>{children}</>;
