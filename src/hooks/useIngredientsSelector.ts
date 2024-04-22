@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { useApiAuth } from './useApiAuth';
 import { OptionLabel, Ingredient } from 'src/utils/types';
 
-const useIngredientsSelector = () => {
+export const useIngredientsSelector = () => {
   const api = useApiAuth();
   const [ingredientsOptions, setIngredients] = useState<OptionLabel[]>([]);
 
@@ -18,6 +18,7 @@ const useIngredientsSelector = () => {
       ingredients.map((ingredient) => ({
         label: ingredient.name,
         value: ingredient.id,
+        meassurementType: ingredient.meassurementType,
       }))
     );
   };

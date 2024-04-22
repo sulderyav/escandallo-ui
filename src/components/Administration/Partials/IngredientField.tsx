@@ -47,15 +47,12 @@ function IngredientsField({
         setOpen(false);
       }}
       onChange={(_, ingredient: OptionLabel) => {
-        // setFieldValue('ingredientId', ingredient ? ingredient.value : 0);
         onChange(ingredientNumber, ingredient ? ingredient.value : 0);
       }}
       sx={{
         width: '50%',
       }}
-      getOptionLabel={(option: OptionLabel) =>
-        `${option.value} - ${option.label}`
-      }
+      getOptionLabel={(option: OptionLabel) => `${option.label}`}
       options={ingredientsOptions}
       loading={loading}
       renderInput={(params) => (

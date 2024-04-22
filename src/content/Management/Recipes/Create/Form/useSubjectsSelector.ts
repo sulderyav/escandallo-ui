@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { useApiAuth } from 'src/hooks';
 import { OptionLabel, Subject } from 'src/utils/types';
 
-const useIngredientsSelector = () => {
+const useSubjectsSelector = () => {
   const api = useApiAuth();
   const [subjectOptions, setSubjects] = useState<OptionLabel[]>([]);
 
@@ -30,4 +30,4 @@ const useIngredientsSelector = () => {
   };
 };
 
-export default useIngredientsSelector;
+export default useSubjectsSelector;

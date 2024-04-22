@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Grid } from '@mui/material';
 
-import IngredientForm from './Form';
+import RecipeForm from './Form';
 
 const CreateIngredient = () => {
   return (
@@ -12,7 +12,7 @@ const CreateIngredient = () => {
 
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <IngredientForm />
+          <RecipeForm />
         </Grid>
       </Grid>
     </>

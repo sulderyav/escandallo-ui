@@ -105,7 +105,6 @@ const RecipeCover: FC<RecipeCoverProps> = ({
                 sx={{ ml: 2 }}
                 variant="contained"
                 onClick={() => {
-                  // console.log(`Calcular escandallo para ${pax} porciones`);
                   setPax(pax);
                   setPax1(pax);
                 }}

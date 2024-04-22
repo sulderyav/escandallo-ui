@@ -48,6 +48,19 @@ export const parseMeassurementTypeToLabel = (
   }
 };
 
+export const parseMeassurementTypeToAvrebiation = (
+  meassurementType: MeassurementType
+) => {
+  switch (meassurementType) {
+    case MeassurementType.KILOGRAM:
+      return 'Kg';
+    case MeassurementType.LITER:
+      return 'l';
+    case MeassurementType.UNITS:
+      return 'U';
+  }
+};
+
 export interface RecipeIngredient {
   id: number;
   grossWeight: number;

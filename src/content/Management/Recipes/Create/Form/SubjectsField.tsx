@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 
 import { OptionLabel } from 'src/utils/types';
-import useIngredientsSelector from './useSubjectsSelector';
+import useSubjectsSelector from './useSubjectsSelector';
 
 type SubjectsFieldProps = {
   setFieldValue: (field: string, value: any) => void;
@@ -23,7 +23,7 @@ function SubjectsField({
   label,
   placeholder,
 }: SubjectsFieldProps) {
-  const { ingredientsOptions } = useIngredientsSelector();
+  const { ingredientsOptions } = useSubjectsSelector();
   const [open, setOpen] = useState(false);
   const loading = open && ingredientsOptions.length === 0;
 

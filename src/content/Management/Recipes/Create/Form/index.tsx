@@ -138,6 +138,12 @@ const CreateIngredientForm = () => {
     setRecipeIngredients(updatedIngredients);
   };
 
+  const updateWaste = (index: number, waste: number) => {
+    const updatedIngredients = [...recipeIngredients];
+    updatedIngredients[index].waste = waste;
+    setRecipeIngredients(updatedIngredients);
+  };
+
   const handleSubmit = async (values: CreateRecipe) => {
     try {
       const newRecipe = await post<Recipe>('/recipes', {
@@ -145,9 +151,13 @@ const CreateIngredientForm = () => {
         subjectIds: values.subjectIds?.map((subject) => subject.value),
       });
       for (const recipeIngredient of recipeIngredients) {
+        // console.log('recipeIngredient', recipeIngredient)
         await post('/recipe-ingredients', {
-          ...recipeIngredient,
+          // ...recipeIngredient,
           recipeId: newRecipe.id,
+          ingredientId: recipeIngredient.ingredientId,
+          grossWeight: recipeIngredient.grossWeight,
+          waste: recipeIngredient.waste,
         });
       }
       enqueueSnackbar('Receta creada correctamente', {
@@ -185,6 +195,7 @@ const CreateIngredientForm = () => {
                 setRecipeIngredients={setRecipeIngredients}
                 updateQuantity={updateQuantity}
                 updateIngredient={updateIngredient}
+                updateWaste={updateWaste}
               />
 
               <Grid item xs={12}>
