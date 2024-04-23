@@ -67,9 +67,10 @@ export interface RecipeIngredient {
   netWeight: number;
   waste: number;
   totalCost: number;
-  output: number;
   ingredient: Ingredient;
   recipe: Recipe;
+  outputPercentage: number;
+  wastePercentage: number;
 }
 
 export interface CreateRecipeIngredient

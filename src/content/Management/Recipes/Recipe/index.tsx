@@ -8,6 +8,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   Typography,
   styled,
 } from '@mui/material';
@@ -15,7 +20,11 @@ import React, { FC, useCallback } from 'react';
 
 import { useApiAuth } from 'src/hooks';
 import { useRecipes } from './reducer';
-import { Recipe, parseMeassurementTypeToLabel } from 'src/utils/types';
+import {
+  Recipe,
+  parseMeassurementTypeToAvrebiation,
+  parseMeassurementTypeToLabel,
+} from 'src/utils/types';
 import Scrollbar from 'src/components/Scrollbar';
 
 const CardCover = styled(Card)(
@@ -51,7 +60,7 @@ const RecipeModal: FC<RecipeModalProps> = ({
   const { recipe, loading } = useRecipes(getRecipe, open);
 
   return (
-    <Dialog fullWidth maxWidth="md" open={open} onClose={onClose}>
+    <Dialog fullWidth maxWidth="lg" open={open} onClose={onClose}>
       {loading && <CircularProgress />}
       {recipe && (
         <>
@@ -128,6 +137,103 @@ const RecipeModal: FC<RecipeModalProps> = ({
                       </Box>
                     </Box>
                   )}
+
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="h5" gutterBottom>
+                      Escandallo
+                    </Typography>
+                  </Box>
+
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>
+                          <Typography variant="h5" gutterBottom>
+                            Ingrediente
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="h5">Peso Bruto</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="h5">Peso Neto</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="h5">Merma</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="h5">Precio x Unidad</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="h5">Costo Total</Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography variant="h5">Costo Ración</Typography>
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {recipe.recipeIngredients.map((recipeIngredient) => (
+                        <TableRow key={recipeIngredient.id}>
+                          {/* Ingrediente */}
+                          <TableCell>
+                            <Typography variant="h5">
+                              {recipeIngredient.ingredient.name}
+                            </Typography>
+                          </TableCell>
+
+                          {/* Peso Bruto */}
+                          <TableCell>
+                            <Typography variant="h5">
+                              {recipeIngredient.grossWeight}{' '}
+                              {parseMeassurementTypeToAvrebiation(
+                                recipeIngredient.ingredient.meassurementType
+                              )}
+                            </Typography>
+                          </TableCell>
+
+                          {/* Peso Neto */}
+                          <TableCell>
+                            <Typography variant="h5">
+                              {recipeIngredient.netWeight.toFixed(2)}{' '}
+                              {parseMeassurementTypeToAvrebiation(
+                                recipeIngredient.ingredient.meassurementType
+                              )}{' '}
+                              | {recipeIngredient.outputPercentage} %
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="h5">
+                              {recipeIngredient.waste}{' '}
+                              {parseMeassurementTypeToAvrebiation(
+                                recipeIngredient.ingredient.meassurementType
+                              )}{' '}
+                              | {recipeIngredient.wastePercentage} %
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="h5">
+                              ${' '}
+                              {recipeIngredient.ingredient.unitPrice.toFixed(2)}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="h5">
+                              $ {recipeIngredient.totalCost.toFixed(2)}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="h5">
+                              ${' '}
+                              {(
+                                recipeIngredient.totalCost / recipe.portions
+                              ).toFixed(2)}
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </Box>
               </Scrollbar>
 

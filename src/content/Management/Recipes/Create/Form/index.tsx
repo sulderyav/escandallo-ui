@@ -104,7 +104,8 @@ const CreateIngredientForm = () => {
       totalCost: 0,
       ingredientId: 0,
       recipeId: 0,
-      output: 0,
+      outputPercentage: 0,
+      wastePercentage: 0,
     },
     {
       grossWeight: 0,
@@ -113,7 +114,8 @@ const CreateIngredientForm = () => {
       totalCost: 0,
       ingredientId: 0,
       recipeId: 0,
-      output: 0,
+      outputPercentage: 0,
+      wastePercentage: 0,
     },
     {
       grossWeight: 0,
@@ -122,7 +124,8 @@ const CreateIngredientForm = () => {
       totalCost: 0,
       ingredientId: 0,
       recipeId: 0,
-      output: 0,
+      outputPercentage: 0,
+      wastePercentage: 0,
     },
   ]);
 
