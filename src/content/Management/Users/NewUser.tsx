@@ -3,19 +3,19 @@ import SubjectForm from './UsersForm';
 import { useApiAuth } from 'src/hooks';
 import { TextsType } from 'src/components/Administration/Router';
 
-function NewLevel({
-  onLevelCreated,
+function NewUser({
+  onUserCreated,
   baseUrl,
   texts,
 }: {
-  onLevelCreated: (message: string) => void;
+  onUserCreated: (message: string) => void;
   baseUrl: string;
   texts: TextsType;
 }) {
   const { post } = useApiAuth();
 
-  async function createLevel(values: any) {
-    await post('/levels', {
+  async function createUser(values: any) {
+    await post('/users', {
       ...values,
     });
   }
@@ -24,9 +24,9 @@ function NewLevel({
     <>
       <AdministrationNewEntity
         baseUrl={baseUrl}
-        createEntity={createLevel}
-        onCreateSuccess={onLevelCreated}
-        successMessage="Nivel creado"
+        createEntity={createUser}
+        onCreateSuccess={onUserCreated}
+        successMessage="Usuario creado"
         renderForm={(formProps) => <SubjectForm {...formProps} texts={texts} />}
         texts={texts}
       />
@@ -34,4 +34,4 @@ function NewLevel({
   );
 }
 
-export default NewLevel;
+export default NewUser;

@@ -1,6 +1,6 @@
 import AdministrationComponent from '../../../components/Administration/Router';
 import LevelsTable from './UsersTable';
-import NewLevel from './NewUser';
+import NewUser from './NewUser';
 import User from './User';
 import EditLevel from './EditUser';
 
@@ -15,7 +15,7 @@ const ParticipantsAddresses = () => {
         <User onDeleteSuccess={onDeleteSuccess} texts={texts} />
       )}
       renderNewEntity={(onCreated, baseUrl, texts) => (
-        <NewLevel onLevelCreated={onCreated} baseUrl={baseUrl} texts={texts} />
+        <NewUser onUserCreated={onCreated} baseUrl={baseUrl} texts={texts} />
       )}
       texts={{
         gender: 'm',

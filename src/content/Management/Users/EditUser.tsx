@@ -2,7 +2,7 @@ import { useApiAuth } from 'src/hooks';
 import AdministrationEdit from 'src/components/Administration/Edit';
 import ParticipantAddressForm from './UsersForm';
 import { TextsType } from 'src/components/Administration/Router';
-import { EditSubject as EditSubjectType, User } from 'src/utils/types';
+import { EditUser as EditUserType, User } from 'src/utils/types';
 
 function EditUser({
   onUpdateSuccess,
@@ -12,10 +12,12 @@ function EditUser({
   texts: TextsType;
 }) {
   const { get, put } = useApiAuth();
-  async function loadUsers(id: string) {
+  async function loadUser(id: string) {
     const user = await get<User>(`/users/${id}`);
-    const editUser: EditSubjectType = {
+    const editUser: EditUserType = {
       ...user,
+      roleIds: user.roles.map((role) => role.id),
+      password: '',
     };
     return editUser;
   }
@@ -30,11 +32,11 @@ function EditUser({
     <AdministrationEdit
       onUpdateSuccess={onUpdateSuccess}
       updateEntity={updateUser}
-      loadEntity={loadUsers}
+      loadEntity={loadUser}
       renderForm={(formProps) => (
         <ParticipantAddressForm {...formProps} texts={texts} sendJustChanged />
       )}
-      successMessage="Materia actualizada"
+      successMessage="Usuario actualizado"
     />
   );
 }

@@ -27,7 +27,7 @@ function Level({
     <Entity
       getEntity={getLevel}
       deleteEntity={deleteLevel}
-      renderEntity={(subject: LevelType, styles, renderButtons) => (
+      renderEntity={(level: LevelType, styles, renderButtons) => (
         <>
           <Grid container className={styles.gridContainer} spacing={3}>
             <Grid item xs={12} className={styles.gridItem}>
@@ -39,20 +39,20 @@ function Level({
                         <Box className={styles.box}>ID:</Box>
                       </Grid>
                       <Grid item xs={8}>
-                        {subject.id}
+                        {level.id}
                       </Grid>
                       <Grid item xs={4} className={styles.labelText}>
                         <Box className={styles.box}>Nombre:</Box>
                       </Grid>
                       <Grid item xs={8} className={styles.boldText}>
-                        {subject.name || 'N/A'}
+                        {level.name || 'N/A'}
                       </Grid>
                       <Grid item xs={4} className={styles.labelText}>
                         <Box className={styles.box}>Fecha Creación:</Box>
                       </Grid>
                       <Grid item xs={8}>
                         {format(
-                          new Date(subject.createdAt),
+                          new Date(level.createdAt),
                           'dd/MM/yyyy HH:mm'
                         ) || 'N/A'}
                       </Grid>
