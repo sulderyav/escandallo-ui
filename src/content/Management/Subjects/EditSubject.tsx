@@ -16,6 +16,7 @@ function EditSubject({
     const subject = await get<Subject>(`/subjects/${id}`);
     const editSubject: EditSubjectType = {
       ...subject,
+      levelIds: subject.levels?.map((level) => level.id),
     };
     return editSubject;
   }

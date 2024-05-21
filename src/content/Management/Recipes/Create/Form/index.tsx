@@ -154,7 +154,6 @@ const CreateIngredientForm = () => {
         subjectIds: values.subjectIds?.map((subject) => subject.value),
       });
       for (const recipeIngredient of recipeIngredients) {
-        // console.log('recipeIngredient', recipeIngredient)
         await post('/recipe-ingredients', {
           // ...recipeIngredient,
           recipeId: newRecipe.id,

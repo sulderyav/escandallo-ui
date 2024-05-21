@@ -25,8 +25,6 @@ const RecipesIngredients: FC<{
   const theme = useTheme();
   const { ingredientsOptions } = useIngredientsSelector();
 
-  console.log('recipeIngredients', recipeIngredients);
-
   return (
     <>
       <Grid

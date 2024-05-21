@@ -11,6 +11,7 @@ import slugify from 'slugify';
 
 import { CreateSubject } from 'src/utils/types';
 import { TextsType } from 'src/components/Administration/Router';
+import LevelsField from './Levels';
 
 const schema = object().shape({
   slug: string()
@@ -69,7 +70,7 @@ function ParticipantAddressForm({
         validateOnChange={true}
         validationSchema={schema}
       >
-        {({ errors, setFieldValue }) => (
+        {({ errors, setFieldValue, values }) => (
           <Form>
             <Grid container spacing={0}>
               <Grid
@@ -159,6 +160,46 @@ function ParticipantAddressForm({
                         );
                         setFieldValue('name', e.target.value);
                       }}
+                    />
+                  )}
+                </Field>
+              </Grid>
+
+              <Grid
+                item
+                xs={12}
+                sm={4}
+                md={3}
+                justifyContent="flex-end"
+                textAlign={{ sm: 'right' }}
+              >
+                <Box
+                  pr={3}
+                  sx={{
+                    pt: `${theme.spacing(2)}`,
+                    pb: { xs: 1, md: 0 },
+                  }}
+                  alignSelf="center"
+                >
+                  <b>Niveles:</b>
+                </Box>
+              </Grid>
+              <Grid
+                sx={{
+                  mb: `${theme.spacing(3)}`,
+                }}
+                item
+                xs={12}
+                sm={8}
+                md={9}
+              >
+                <Field name="levelIds">
+                  {({ field }: FieldProps) => (
+                    <LevelsField
+                      value={field.value}
+                      error={Boolean(errors.levelIds)}
+                      helperText={errors.levelIds}
+                      setFieldValue={setFieldValue}
                     />
                   )}
                 </Field>
