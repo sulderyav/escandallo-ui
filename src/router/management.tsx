@@ -22,6 +22,7 @@ const CreateRecipe = Loader(
   lazy(() => import('src/content/Management/Recipes/Create'))
 );
 const Subjects = Loader(lazy(() => import('src/content/Management/Subjects')));
+const Levels = Loader(lazy(() => import('src/content/Management/Levels')));
 
 const homeRoutes = [
   {
@@ -51,6 +52,10 @@ const homeRoutes = [
   {
     path: 'subjects/*',
     element: <Subjects />,
+  },
+  {
+    path: 'levels/*',
+    element: <Levels />,
   },
 ];
 
