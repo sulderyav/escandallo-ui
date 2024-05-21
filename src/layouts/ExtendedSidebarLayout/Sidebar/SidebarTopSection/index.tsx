@@ -23,6 +23,7 @@ import UnfoldMoreTwoToneIcon from '@mui/icons-material/UnfoldMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import { parseRoleName } from 'src/utils/types';
 
 const MenuUserBox = styled(Box)(
   ({ theme }) => `
@@ -123,7 +124,7 @@ function SidebarTopSection() {
           color: `${theme.colors.alpha.trueWhite[70]}`,
         }}
       >
-        Usuario
+        {parseRoleName(user.roles[0].name)}
       </Typography>
     </Box>
   );

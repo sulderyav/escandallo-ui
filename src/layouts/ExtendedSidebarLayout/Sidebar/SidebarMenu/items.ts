@@ -27,42 +27,47 @@ export interface MenuItems {
 
 const menuItems: MenuItems[] = [
   {
-    heading: 'Administración',
-    items: [
-      {
-        name: 'Ingredientes',
-        icon: KitchenIcon,
-        link: '/management/ingredients',
-      },
-      {
-        name: 'Recetas',
-        icon: SoupKitchenIcon,
-        link: '/management/recipes',
-      },
-      {
-        name: 'Niveles',
-        icon: AltRouteIcon,
-        link: '/management/levels/list',
-      },
-      {
-        name: 'Materias',
-        link: '/management/subjects/list',
-        icon: CoPresentIcon,
-      },
-      {
-        name: 'Usuarios',
-        icon: AccountCircleIcon,
-        link: '/management/users/list',
-      },
-    ],
-  },
-  {
     heading: 'Dashboard',
     items: [
       {
         name: 'Escandallo',
         link: '/dashboard/cost-evaluation',
         icon: PointOfSaleIcon,
+      },
+    ],
+  },
+  {
+    heading: 'Administración',
+    items: [
+      {
+        name: 'Ingredientes',
+        icon: KitchenIcon,
+        link: '/management/ingredients',
+        roles: ['ADMIN', 'TEACHER', 'STUDENT'],
+      },
+      {
+        name: 'Recetas',
+        icon: SoupKitchenIcon,
+        link: '/management/recipes',
+        roles: ['ADMIN', 'TEACHER', 'STUDENT'],
+      },
+      {
+        name: 'Niveles',
+        icon: AltRouteIcon,
+        link: '/management/levels/list',
+        roles: ['ADMIN', 'TEACHER'],
+      },
+      {
+        name: 'Materias',
+        link: '/management/subjects/list',
+        icon: CoPresentIcon,
+        roles: ['ADMIN', 'TEACHER'],
+      },
+      {
+        name: 'Usuarios',
+        icon: AccountCircleIcon,
+        link: '/management/users/list',
+        roles: ['ADMIN'],
       },
     ],
   },

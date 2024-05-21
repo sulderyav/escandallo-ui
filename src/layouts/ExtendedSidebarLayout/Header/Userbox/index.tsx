@@ -28,6 +28,7 @@ import useAuth from 'src/hooks/useAuth';
 import { ThemeContext } from 'src/theme/ThemeProvider';
 import { parseJobTitleIntoJob } from 'src/utils/convertions';
 import { useApiAuth } from 'src/hooks';
+import { parseRoleName } from 'src/utils/types';
 
 const ListItemIconWrapper = styled(ListItemIcon)(
   ({ theme }) => `
@@ -189,7 +190,7 @@ function HeaderUserbox() {
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.fullName}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              Usuario
+              {parseRoleName(user.roles[0].name)}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
@@ -218,7 +219,7 @@ function HeaderUserbox() {
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.fullName}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              Usuario
+              {parseRoleName(user.roles[0].name)}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>

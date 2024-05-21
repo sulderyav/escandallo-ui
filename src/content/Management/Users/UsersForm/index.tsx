@@ -11,6 +11,7 @@ import { Grid, TextField, useTheme } from '@mui/material';
 import { CreateUser } from 'src/utils/types';
 import { TextsType } from 'src/components/Administration/Router';
 import RolesField from './RolesField';
+import LevelsField from './LevelsField';
 
 const schema = object().shape({
   username: string().required('El nombre de usuario es requerido'),
@@ -40,6 +41,7 @@ const defaultValues: CreateUser = {
   mobile: '',
   isActive: true,
   roleIds: [],
+  levelIds: [],
   username: '',
   password: '',
 };
@@ -96,7 +98,8 @@ function ParticipantAddressForm({
         {({ errors, setFieldValue, touched, handleBlur, values }) => (
           <Form>
             <Grid container spacing={3}>
-              <Grid item xs={12} lg={7}>
+              {/* <Grid item xs={12} lg={7}> */}
+              <Grid item xs={12} lg={12}>
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
                     <Field name="username">
@@ -196,6 +199,16 @@ function ParticipantAddressForm({
                       touched={touched}
                     />
                   </Grid>
+                  {/* {values.roleIds.includes(12) && ( */}
+                  <Grid item xs={12} md={6}>
+                    <LevelsField
+                      setFieldValue={setFieldValue}
+                      value={values.levelIds}
+                      errors={errors}
+                      touched={touched}
+                    />
+                  </Grid>
+                  {/* )} */}
                 </Grid>
               </Grid>
               {/* <Grid item xs={12} lg={5} justifyContent="center">

@@ -1,3 +1,5 @@
+import { Level } from './level';
+
 export type RoleNames = 'SUPER_ADMIN' | 'ADMIN' | 'TEACHER' | 'STUDENT';
 
 export interface User {
@@ -11,6 +13,7 @@ export interface User {
   lastName: string;
   createdAt: string;
   roles: Role[];
+  levels: Level[];
   isActive: boolean;
 }
 
@@ -21,9 +24,13 @@ export type Role = {
 };
 
 export interface CreateUser
-  extends Omit<User, 'id' | 'createdAt' | 'roles' | 'fullName' | 'avatar'> {
+  extends Omit<
+    User,
+    'id' | 'createdAt' | 'roles' | 'fullName' | 'avatar' | 'levels'
+  > {
   avatar?: string;
   roleIds: number[];
+  levelIds?: number[];
   password: string;
 }
 

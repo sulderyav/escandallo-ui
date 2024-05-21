@@ -17,6 +17,7 @@ function EditUser({
     const editUser: EditUserType = {
       ...user,
       roleIds: user.roles.map((role) => role.id),
+      levelIds: user.levels.map((level) => level.id),
       password: '',
     };
     return editUser;
