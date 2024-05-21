@@ -248,7 +248,7 @@ const canSee = (roles: RoleNames[] = [], userRoles: RoleNames[] = []) => {
   if (roles.length === 0) return true;
   return (
     roles.some((role) => userRoles.includes(role)) ||
-    userRoles.includes('Super Admin')
+    userRoles.includes('SUPER_ADMIN')
   );
 };
 

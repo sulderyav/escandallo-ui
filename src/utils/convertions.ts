@@ -1,7 +1,7 @@
 export const parseJobTitleIntoJob = (jobProfile: string): string => {
   switch (jobProfile) {
     case 'SUPER ADMIN':
-      return 'Super Admin';
+      return 'SUPER_ADMIN';
     case 'ADMIN':
       return 'Administrador';
     case 'AGENT':

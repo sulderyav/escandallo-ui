@@ -1,4 +1,4 @@
-// export type UserRole = 'Super Admin' | 'AD' | 'SL' | 'SP';
+// export type UserRole = 'SUPER_ADMIN' | 'AD' | 'SL' | 'SP';
 
 export type UserOld = {
   id: string;

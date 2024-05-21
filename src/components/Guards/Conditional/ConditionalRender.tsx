@@ -10,7 +10,7 @@ interface ConditionalProps {
   roles: RoleNames[];
 }
 const ConditionalRender: FC<ConditionalProps> = ({ children, roles }) => {
-  roles.push('Super Admin'); // Always add Super Admin role to the roles array
+  roles.push('SUPER_ADMIN'); // Always add SUPER_ADMIN role to the roles array
   const { user } = useAuth();
 
   if (roles.filter((rol) => user.roles[0]?.name === rol)[0]) {

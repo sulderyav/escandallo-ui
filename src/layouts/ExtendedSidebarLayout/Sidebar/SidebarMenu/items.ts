@@ -4,6 +4,7 @@ import SoupKitchenIcon from '@mui/icons-material/SoupKitchen';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import AltRouteIcon from '@mui/icons-material/AltRoute';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { RoleNames } from 'src/utils/types';
 
@@ -47,6 +48,11 @@ const menuItems: MenuItems[] = [
         name: 'Materias',
         link: '/management/subjects/list',
         icon: CoPresentIcon,
+      },
+      {
+        name: 'Usuarios',
+        icon: AccountCircleIcon,
+        link: '/management/users/list',
       },
     ],
   },
