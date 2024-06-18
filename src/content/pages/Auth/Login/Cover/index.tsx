@@ -73,7 +73,7 @@ function LoginCover() {
                 <Logo />
                 <Box mt={6}>
                   <TypographyH1 variant="h1" sx={{ mb: 7 }}>
-                    Escandallo
+                    ITI - Escandallo
                   </TypographyH1>
                 </Box>
               </SidebarContent>

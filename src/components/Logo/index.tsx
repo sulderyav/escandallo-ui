@@ -102,12 +102,14 @@ function Logo() {
 
   return (
     <LogoWrapper to='/overview'>
-      <LogoSignWrapper>
+        <img alt="Auth0" src="/static/images/svg/logo-ITI.svg" />
+
+      {/* <LogoSignWrapper>
         <LogoSign>
           <LogoSignInner />
         </LogoSign>
-      </LogoSignWrapper>
-      <Box
+      </LogoSignWrapper> */}
+      {/* <Box
         component='span'
         sx={{
           display: { xs: 'none', sm: 'inline-block' },
@@ -118,7 +120,7 @@ function Logo() {
           </Tooltip>
           <LogoText>Tokyo</LogoText>
         </LogoTextWrapper>
-      </Box>
+      </Box> */}
     </LogoWrapper>
   );
 }

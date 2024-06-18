@@ -9,7 +9,7 @@ export const ThemeContext = React.createContext(
 
 const ThemeProviderWrapper: React.FC = (props) => {
   // FYI: Default dark mode is because of this line:
-  const curThemeName = localStorage.getItem('appTheme') || 'NebulaFighterTheme';
+  const curThemeName = localStorage.getItem('appTheme') || 'PureLightTheme';
   const [themeName, _setThemeName] = useState(curThemeName);
   const theme = themeCreator(themeName);
   const setThemeName = (themeName: string): void => {

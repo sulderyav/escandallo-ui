@@ -52,7 +52,7 @@ const colors = {
   },
   layout: {
     general: {
-      bodyBg: '#070C27'
+      bodyBg: '#070C27',
     },
     sidebar: {
       background: themeColors.primaryAlt,
