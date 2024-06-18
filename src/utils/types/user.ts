@@ -39,7 +39,8 @@ export interface EditUser extends Partial<CreateUser> {}
 export const parseRoleName = (role: RoleNames) => {
   switch (role) {
     case 'SUPER_ADMIN':
-      return 'Super Administrador';
+      // return 'Super Administrador';
+      return 'Profesor';
     case 'ADMIN':
       return 'Administrador';
     case 'TEACHER':

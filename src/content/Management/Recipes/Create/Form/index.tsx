@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Formik, Form, FastField as Field, FieldProps } from 'formik';
-import { object, string } from 'yup';
+import { useState } from "react";
+import { Formik, Form, FastField as Field, FieldProps } from "formik";
+import { object, string } from "yup";
 import {
   Box,
   Button,
@@ -9,18 +9,18 @@ import {
   Typography,
   styled,
   useTheme,
-} from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
-import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+} from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
-import { CreateRecipe, CreateRecipeIngredient, Recipe } from 'src/utils/types';
-import { useApiAuth } from 'src/hooks';
-import Cover from './Cover';
-import RecipeIngredients from './Ingredients';
-import SubjectsField from './SubjectsField';
+import { CreateRecipe, CreateRecipeIngredient, Recipe } from "src/utils/types";
+import { useApiAuth } from "src/hooks";
+import Cover from "./Cover";
+import RecipeIngredients from "./Ingredients";
+import SubjectsField from "./SubjectsField";
 
 const EditorWrapper = styled(Box)(
   ({ theme }) => `
@@ -62,17 +62,17 @@ const EditorWrapper = styled(Box)(
 );
 
 const validationSchema = object().shape({
-  slug: string().required('El slug es requerido'),
-  name: string().required('El nombre es requerido'),
-  steps: string().required('Los pasos son requeridos'),
+  slug: string().required("El slug es requerido"),
+  name: string().required("El nombre es requerido"),
+  steps: string().required("Los pasos son requeridos"),
   portions: string()
-    .required('Las porciones son requeridas')
-    .test('isNumber', 'Las porciones deben ser un número', (value) => {
+    .required("Las porciones son requeridas")
+    .test("isNumber", "Las porciones deben ser un número", (value) => {
       return !isNaN(Number(value));
     })
     .test(
-      'isGreaterThanZero',
-      'Las porciones deben ser mayores a 0',
+      "isGreaterThanZero",
+      "Las porciones deben ser mayores a 0",
       (value) => {
         return Number(value) > 0;
       }
@@ -80,12 +80,13 @@ const validationSchema = object().shape({
 });
 
 const defaultValues: CreateRecipe = {
-  slug: '',
-  name: '',
-  steps: '',
+  slug: "",
+  name: "",
+  steps: "",
   portions: 0,
-  coverImage: '',
+  coverImage: "",
   subjectIds: [],
+  video: "",
 };
 
 const CreateIngredientForm = () => {
@@ -149,12 +150,12 @@ const CreateIngredientForm = () => {
 
   const handleSubmit = async (values: CreateRecipe) => {
     try {
-      const newRecipe = await post<Recipe>('/recipes', {
+      const newRecipe = await post<Recipe>("/recipes", {
         ...values,
         subjectIds: values.subjectIds?.map((subject) => subject.value),
       });
       for (const recipeIngredient of recipeIngredients) {
-        await post('/recipe-ingredients', {
+        await post("/recipe-ingredients", {
           // ...recipeIngredient,
           recipeId: newRecipe.id,
           ingredientId: recipeIngredient.ingredientId,
@@ -162,12 +163,12 @@ const CreateIngredientForm = () => {
           waste: recipeIngredient.waste,
         });
       }
-      enqueueSnackbar('Receta creada correctamente', {
-        variant: 'success',
+      enqueueSnackbar("Receta creada correctamente", {
+        variant: "success",
       });
-      navigate('/management/recipes');
+      navigate("/management/recipes");
     } catch (error) {
-      console.error('error', error);
+      console.error("error", error);
     }
   };
 
@@ -179,12 +180,12 @@ const CreateIngredientForm = () => {
         // validateOnBlur={true}
         validationSchema={validationSchema}
       >
-        {({ errors, values, setFieldValue }) => (
+        {({ errors, values, setFieldValue, touched }) => (
           <Form>
             <Cover
               name={values.name}
               slug={values.slug}
-              coverImageURL={values.coverImage || ''}
+              coverImageURL={values.coverImage || ""}
               setFieldValue={setFieldValue}
               nameError={Boolean(errors.name)}
               nameHelperText={errors.name}
@@ -200,17 +201,27 @@ const CreateIngredientForm = () => {
                 updateWaste={updateWaste}
               />
 
+              <TextField
+                label="Link de YouTube"
+                placeholder="https://youtube.com/watch?=abc"
+                sx={{ ml: 2 }}
+                error={Boolean(touched.video && errors.video)}
+                helperText={touched.video && errors.video}
+                value={values.video}
+                onChange={(e) => setFieldValue("video", e.target.value)}
+              />
+
               <Grid item xs={12}>
                 <Box p={3}>
                   <EditorWrapper>
                     <ReactQuill
                       placeholder="Escribe los pasos de la receta"
-                      onChange={(value) => setFieldValue('steps', value)}
+                      onChange={(value) => setFieldValue("steps", value)}
                     />
                     <Typography
                       variant="subtitle1"
                       color="error"
-                      style={{ display: 'block', marginTop: '10px' }}
+                      style={{ display: "block", marginTop: "10px" }}
                     >
                       {errors.steps}
                     </Typography>
@@ -223,7 +234,7 @@ const CreateIngredientForm = () => {
                 sm={4}
                 md={3}
                 justifyContent="flex-end"
-                textAlign={{ sm: 'right' }}
+                textAlign={{ sm: "right" }}
               >
                 <Box
                   pr={3}
@@ -251,8 +262,8 @@ const CreateIngredientForm = () => {
                       {...field}
                       label="Porciones"
                       placeholder="Ej. 2"
-                      error={Boolean(errors.portions)}
-                      helperText={errors.portions}
+                      error={Boolean(touched.portions && errors.portions)}
+                      helperText={touched.portions && errors.portions}
                     />
                   )}
                 </Field>
@@ -264,7 +275,7 @@ const CreateIngredientForm = () => {
                 sm={4}
                 md={3}
                 justifyContent="flex-end"
-                textAlign={{ sm: 'right' }}
+                textAlign={{ sm: "right" }}
               >
                 <Box
                   pr={3}
@@ -291,8 +302,8 @@ const CreateIngredientForm = () => {
                     <SubjectsField
                       {...field}
                       setFieldValue={setFieldValue}
-                      error={Boolean(errors.portions)}
-                      helperText={errors.portions}
+                      error={Boolean(touched.subjectIds && errors.subjectIds)}
+                      helperText={touched.subjectIds && errors.subjectIds}
                       label="Materias"
                     />
                   )}
@@ -304,7 +315,7 @@ const CreateIngredientForm = () => {
                 item
                 xs={12}
                 justifyContent="flex-end"
-                textAlign={{ sm: 'right' }}
+                textAlign={{ sm: "right" }}
                 mr={3}
               >
                 <Button

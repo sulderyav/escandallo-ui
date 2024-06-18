@@ -4,29 +4,29 @@ import {
   Form,
   FastField as Field,
   FieldProps,
-} from 'formik';
-import { object, string, number } from 'yup';
-import { Box, Grid, TextField, useTheme } from '@mui/material';
-import slugify from 'slugify';
+} from "formik";
+import { object, string, number } from "yup";
+import { Box, Grid, TextField, useTheme } from "@mui/material";
+import slugify from "slugify";
 
-import { CreateSubject } from 'src/utils/types';
-import { TextsType } from 'src/components/Administration/Router';
-import LevelsField from './Levels';
+import { CreateSubject } from "src/utils/types";
+import { TextsType } from "src/components/Administration/Router";
+import LevelsField from "./Levels";
 
 const schema = object().shape({
   slug: string()
-    .required('Este campo es requerido')
+    .required("Este campo es requerido")
     // Test if the value is a valid slug
     .matches(
       /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
-      'Debe ser un slug válido. No se permiten espacios ni caracteres especiales.'
+      "Debe ser un slug válido. No se permiten espacios ni caracteres especiales."
     ),
-  name: string().required('Este campo es requerido'),
+  name: string().required("Este campo es requerido"),
 });
 
 const defaultValues: CreateSubject = {
-  slug: '',
-  name: '',
+  slug: "",
+  name: "",
 };
 export type FormProps = {
   errors: FormikErrors<CreateSubject>;
@@ -70,7 +70,7 @@ function ParticipantAddressForm({
         validateOnChange={true}
         validationSchema={schema}
       >
-        {({ errors, setFieldValue, values }) => (
+        {({ errors, setFieldValue, touched }) => (
           <Form>
             <Grid container spacing={0}>
               <Grid
@@ -79,7 +79,7 @@ function ParticipantAddressForm({
                 sm={4}
                 md={3}
                 justifyContent="flex-end"
-                textAlign={{ sm: 'right' }}
+                textAlign={{ sm: "right" }}
               >
                 <Box
                   pr={3}
@@ -107,8 +107,8 @@ function ParticipantAddressForm({
                       {...field}
                       label="Slug"
                       placeholder="Ej. cocina-fria"
-                      error={Boolean(errors.slug)}
-                      helperText={errors.slug}
+                      error={Boolean(touched.slug && errors.slug)}
+                      helperText={touched.slug && errors.slug}
                       disabled
                     />
                   )}
@@ -120,7 +120,7 @@ function ParticipantAddressForm({
                 sm={4}
                 md={3}
                 justifyContent="flex-end"
-                textAlign={{ sm: 'right' }}
+                textAlign={{ sm: "right" }}
               >
                 <Box
                   pr={3}
@@ -152,13 +152,13 @@ function ParticipantAddressForm({
                       helperText={errors.name}
                       onChange={(e) => {
                         setFieldValue(
-                          'slug',
+                          "slug",
                           slugify(e.target.value, {
-                            replacement: '-',
+                            replacement: "-",
                             lower: true,
                           })
                         );
-                        setFieldValue('name', e.target.value);
+                        setFieldValue("name", e.target.value);
                       }}
                     />
                   )}
@@ -171,7 +171,7 @@ function ParticipantAddressForm({
                 sm={4}
                 md={3}
                 justifyContent="flex-end"
-                textAlign={{ sm: 'right' }}
+                textAlign={{ sm: "right" }}
               >
                 <Box
                   pr={3}

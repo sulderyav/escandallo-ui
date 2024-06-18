@@ -7,6 +7,7 @@ export interface Recipe {
   slug: string;
   name: string;
   steps: string;
+  video: string;
   portions: number;
   coverImage: string;
   recipeIngredients: RecipeIngredient[];
@@ -14,7 +15,8 @@ export interface Recipe {
 }
 
 export interface CreateRecipe
-  extends Omit<Recipe, 'id' | 'coverImage' | 'recipeIngredients' | 'subjects'> {
+  extends Omit<Recipe, 'id' | 'coverImage' | 'recipeIngredients' | 'subjects' | 'video'> {
   coverImage?: string;
   subjectIds?: OptionLabel[];
+  video?: string;
 }

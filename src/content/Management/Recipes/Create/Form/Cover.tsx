@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import PropTypes from 'prop-types';
+import { FC } from "react";
+import PropTypes from "prop-types";
 import {
   Box,
   Typography,
@@ -11,16 +11,17 @@ import {
   styled,
   TextField,
   CircularProgress,
-} from '@mui/material';
-import { useTranslation } from 'react-i18next';
-import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
-import { useNavigate, useLocation } from 'react-router-dom';
-import UploadTwoToneIcon from '@mui/icons-material/UploadTwoTone';
+} from "@mui/material";
+import { useTranslation } from "react-i18next";
+import ArrowBackTwoToneIcon from "@mui/icons-material/ArrowBackTwoTone";
+import { useNavigate, useLocation } from "react-router-dom";
+import UploadTwoToneIcon from "@mui/icons-material/UploadTwoTone";
+import slugify from "slugify";
 
-import { useUploadFile } from 'src/hooks';
+import { useUploadFile } from "src/hooks";
 
-const Input = styled('input')({
-  display: 'none',
+const Input = styled("input")({
+  display: "none",
 });
 
 const CardCover = styled(Card)(
@@ -64,22 +65,22 @@ const RecipeCover: FC<RecipeCoverProps> = ({
   const navigate = useNavigate();
   const location = useLocation();
   const { uploadFile, loading: uploadingCoverImage } = useUploadFile({
-    destination: 'recipes/images',
+    destination: "recipes/images",
   });
 
   const handleBack = (): void => {
-    return navigate(`/${location.pathname.split('/')[1]}/recipes`);
+    return navigate(`/${location.pathname.split("/")[1]}/recipes`);
   };
 
   const handleFileUpload = async (file: File) => {
     const fileUrl = await uploadFile(file);
-    setFieldValue('coverImage', fileUrl);
+    setFieldValue("coverImage", fileUrl);
   };
 
   return (
     <>
       <Box display="flex" pt={3} mb={3}>
-        <Tooltip arrow placement="top" title={t('Go back')}>
+        <Tooltip arrow placement="top" title={t("Go back")}>
           <IconButton
             onClick={handleBack}
             color="primary"
@@ -95,8 +96,8 @@ const RecipeCover: FC<RecipeCoverProps> = ({
           <Typography variant="h3" component="h3" gutterBottom>
             <Box
               style={{
-                display: 'flex',
-                alignItems: 'center',
+                display: "flex",
+                alignItems: "center",
               }}
             >
               Receta:
@@ -107,7 +108,16 @@ const RecipeCover: FC<RecipeCoverProps> = ({
                 error={nameError}
                 helperText={nameHelperText}
                 value={name}
-                onChange={(e) => setFieldValue('name', e.target.value)}
+                onChange={(e) => {
+                  setFieldValue("name", e.target.value);
+                  setFieldValue(
+                    "slug",
+                    slugify(e.target.value, {
+                      replacement: "-",
+                      lower: true,
+                    })
+                  );
+                }}
               />
               <TextField
                 label="Slug"
@@ -116,7 +126,7 @@ const RecipeCover: FC<RecipeCoverProps> = ({
                 error={nameError}
                 helperText={nameHelperText}
                 value={slug}
-                onChange={(e) => setFieldValue('slug', e.target.value)}
+                onChange={(e) => setFieldValue("slug", e.target.value)}
               />
             </Box>
           </Typography>

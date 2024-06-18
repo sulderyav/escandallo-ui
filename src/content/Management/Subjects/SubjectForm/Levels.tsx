@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import React, { useState } from "react";
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 
-import { OptionLabel, Level } from 'src/utils/types';
-import useLevelsSelector from './useLevelsSelector';
+import { OptionLabel, Level } from "src/utils/types";
+import useLevelsSelector from "./useLevelsSelector";
 
 type LevelsFieldProps = {
   setFieldValue: (field: string, value: any) => void;
@@ -26,13 +26,13 @@ function LevelsField({
   return (
     <Autocomplete
       className={className}
-      value={levelOptions.filter((option) => value.includes(option.value))}
+      value={levelOptions.filter((option) => value?.includes(option.value))}
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       onChange={(_, levelOption: OptionLabel[]) => {
         setFieldValue(
-          'levelIds',
+          "levelIds",
           levelOption.map((option) => option.value)
         );
       }}
@@ -47,7 +47,7 @@ function LevelsField({
           label="Niveles"
           variant="outlined"
           sx={{
-            width: '80%',
+            width: "80%",
           }}
           error={error}
           helperText={helperText}
