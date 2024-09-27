@@ -12,11 +12,11 @@ import {
   Link,
 } from '@mui/material';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import { useState } from 'react';
 
 import Text from 'src/components/Text';
 import { RecipeIngredient, Subject } from 'src/utils/types';
 import RecipeModal from '../Recipe';
-import { useState } from 'react';
 
 const IconButtonError = styled(IconButton)(
   ({ theme }) => `

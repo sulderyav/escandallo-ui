@@ -114,6 +114,16 @@ const RecipeModal: FC<RecipeModalProps> = ({
                     </Box>
                   </Box>
 
+                  {recipe.video && (
+                    <Box sx={{ mt: 2 }}>
+                      <iframe
+                        width="420"
+                        height="315"
+                        src={recipe.video}
+                      ></iframe>
+                    </Box>
+                  )}
+
                   <Box sx={{ mt: 2 }}>
                     <Typography variant="h5" gutterBottom>
                       Procedimiento
